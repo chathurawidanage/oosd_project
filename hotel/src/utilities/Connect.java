@@ -24,7 +24,7 @@ class Connect {
 
     private Connection Conn() {
         a = null;
-        url = "jdbc:mysql://10.10.28.107:3306/";
+        url = "jdbc:mysql://localhost:3306/";
         driver = "com.mysql.jdbc.Driver";
         uname = "root";
         pword = "";
@@ -75,7 +75,8 @@ class Connect {
     public int setQuery(String query, String column_name) {
         int i = 0;
         try {
-            //  a = Conn();
+              a = Conn();
+            System.out.println(query);
             Statement stmt = a.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             //  Statement stmt = Conn().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 // ...

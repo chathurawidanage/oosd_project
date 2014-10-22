@@ -5,9 +5,9 @@
  */
 package utilities;
 
-
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -23,11 +23,11 @@ public class DataBase {
     /**
      *
      * @param table table to push the data in to
-     * @param idCol name of the auto increment column
+     * @param returnCol name of the auto increment column
      * @param data data to be pushed
      * @return id of the new column
      */
-    public static int insert(String table, String idCol, HashMap<String, Object> data) {
+    public static int insert(String table, String returnCol, HashMap<String, Object> data) {
         String sql = "INSERT INTO " + table + "(";
         Set<String> cols = data.keySet();
         Iterator<String> colIterator = cols.iterator();
@@ -41,19 +41,34 @@ public class DataBase {
 
         colIterator = cols.iterator();
         while (colIterator.hasNext()) {
-            Object value = colIterator.next();
+            String key = colIterator.next();
+            Object value = data.get(key);
             if (value instanceof Number) {
                 sql += value.toString();
 
+            } else if (value instanceof Boolean) {
+                if (value.equals(Boolean.TRUE)) {
+                    sql += 1;
+                } else {
+                    sql += 0;
+                }
+            } else if (value instanceof Date) {
+                long d = ((Date) value).getTime();
+                java.sql.Timestamp sqlDate = new java.sql.Timestamp(d);
+                sql += "'" + sqlDate + "'";
             } else {
                 sql += "'" + value.toString() + "'";
+            }
+
+            if (colIterator.hasNext()) {
+                sql += ",";
             }
         }
 
         sql += ")";
 
-        if (idCol != null) {
-            return con.setQuery(sql, idCol);
+        if (returnCol != null) {
+            return con.setQuery(sql, returnCol);
         }
 
         if (con.setQuery(sql)) {
