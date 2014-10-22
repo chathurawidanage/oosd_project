@@ -64,9 +64,7 @@ public class ReceptionHall {
         this.id = id;
     }
 
-    public int save() {
-        //this.name = name;
-       
+    public int save() {      
         HashMap map = new HashMap();
         map.put("Name", name);
         int ID = DataBase.insert("halls", "id", map);
