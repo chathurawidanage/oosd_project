@@ -5,7 +5,7 @@
  */
 package ui;
 
-import com.alee.laf.WebLookAndFeel;
+
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
