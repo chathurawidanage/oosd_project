@@ -66,7 +66,7 @@ public class Ledger {
         ResultSet results = DataBase.getQuery(query);
         try {
             while(results.next()){
-                list.add(new Transaction(results.getInt("id")));
+                list.add(new Transaction(results.getDate("date"), results.getDouble("amount"), results.getInt("user"), results.getString("details"), results.getInt("type"), results.getInt("completed")));
             }
             
         } catch (SQLException ex) {
