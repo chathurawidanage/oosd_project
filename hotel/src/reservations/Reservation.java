@@ -5,6 +5,7 @@
  */
 
 package reservations;
+import accounting.Ledger;
 import elements.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,9 +53,11 @@ public class Reservation {
      * @param customer
      * @param hall 
      * @param date reserving date
+     * @param payment true if full,false if advance
+     * @param amount payment amount
      * @return return true if reservation successful ,false if unsuccess
      */
-    public boolean reserve(Customer customer,ReceptionHall hall,Date date){
+    public boolean reserve(Customer customer,ReceptionHall hall,Date date,boolean payment,double amount){
         HashMap map=new HashMap();
         int hallID=hall.getId();
         String customerID=customer.getId();
@@ -63,6 +66,8 @@ public class Reservation {
         insert = DataBase.insert(dbTable,"Date",map);
         map.put(insert,customerID);
         DataBase.insert(dbTable,"CustomerID",map);
+      //  Ledger.addReservation(true, insert,customer.getId(),customer.getName(),hall.getName());
+        //Ledger.
         return true;
     }
     
@@ -98,7 +103,6 @@ public class Reservation {
         ResultSet select;
         try {
             select= DataBase.select(dbTable, dbCols, "Date='" + date.toString() + "'");
-            //int[] array = (int[]) select.getArray("hall").getArray();
             while(select.next()){
                 halls.remove(select.getInt("id"));
             }
