@@ -20,6 +20,7 @@ public class Person {
     private String address = "";
     private String contact = "";
     private String Details = "" ;
+    private int colID ;
     private HashMap hash = new HashMap();
     protected static final int SUCCESS_SAVE = 0 ; 
     protected static final int ERROR_ID = -1 ;
@@ -28,21 +29,16 @@ public class Person {
 
     // get set methods for the private variables
     public int getId() {  // return the id of in the table person
-        try {
-            ArrayList getCol = new ArrayList();
-            getCol.add("Id") ;
-            ResultSet set = utilities.DataBase.select("person", getCol, "NIC = '"+Id+"'") ;
-            set.next();
-            return  set.getInt("Id") ;
-             
-        } catch (SQLException ex) {
-            MainWindow.showError("Error", "Cannot access the database");
-            return -1 ;
-        }
+        return colID ; // return -1 if db error els the column id
     }
 
     public void setId(String Id) {
         this.Id = Id;
+    }
+    
+    public String getNIC() {
+        
+        return Id ;
     }
 
     public String getName() {
@@ -204,8 +200,10 @@ public class Person {
             getCol.add("Name") ;
             getCol.add("Address") ;
             getCol.add("details") ;
+            getCol.add("Details");
             ResultSet set = utilities.DataBase.select("person", getCol, "Id = "+id) ;
             set.next();
+            colID = set.getInt("Id") ;
             this.Id = set.getString("NIC") ;
             this.name = set.getString("Name") ;
             this.address = set.getString("Address") ;
@@ -213,7 +211,7 @@ public class Person {
             this.Details = set.getString("details") ;
         } catch (SQLException ex) {
             MainWindow.showError("Error", "Cannot access the database");
-            
+            colID = -1 ;
         }
           
         
