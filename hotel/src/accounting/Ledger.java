@@ -70,4 +70,20 @@ public class Ledger {
         return (transaction.Save())>0;
         
     }
+    
+    /**
+     *
+     * @param amount Payment amount
+     * @param userId id of the supplier
+     * @param details  details about the bill
+     * @return true if success. otherwise false
+     */
+    
+    public static boolean addBill( double amount, int userId, String details){
+ 
+        Transaction transaction = new Transaction(new Date(), amount, userId, details, -1, 1);
+        
+        return (transaction.Save())>0;
+        
+    }
 }
