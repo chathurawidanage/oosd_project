@@ -18,13 +18,15 @@ import reservations.Reservation;
  */
 public class SearchHalls extends javax.swing.JInternalFrame {
 
+    private ArrayList<ReceptionHall> halls = new ArrayList<>();
+
     /**
      * Creates new form SearchHalls
      */
     public SearchHalls() {
-        initComponents();        
-        toDate.setMinSelectableDate(new Date());
+        initComponents();
         fromDate.setMinSelectableDate(new Date());
+        toDate.setMinSelectableDate(new Date());
     }
 
     /**
@@ -41,9 +43,9 @@ public class SearchHalls extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        toDate = new com.toedter.calendar.JDateChooser();
-        jLabel3 = new javax.swing.JLabel();
         fromDate = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        toDate = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -71,27 +73,27 @@ public class SearchHalls extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("From");
 
-        toDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        toDate.addMouseListener(new java.awt.event.MouseAdapter() {
+        fromDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fromDate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDateMouseClicked(evt);
+                fromDateMouseClicked(evt);
             }
         });
-        toDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        fromDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                toDatePropertyChange(evt);
+                fromDatePropertyChange(evt);
             }
         });
-        toDate.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+        fromDate.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
             public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                toDateVetoableChange(evt);
+                fromDateVetoableChange(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("To");
 
-        fromDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        toDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Search");
@@ -111,11 +113,11 @@ public class SearchHalls extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -128,14 +130,14 @@ public class SearchHalls extends javax.swing.JInternalFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fromDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                                .addComponent(toDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
@@ -148,11 +150,11 @@ public class SearchHalls extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Date", "Hall"
+                "Hall"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -161,12 +163,16 @@ public class SearchHalls extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(25);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(150);
         }
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Reserve");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,36 +212,46 @@ public class SearchHalls extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Date dateTo = toDate.getDate();
         Date dateFrom = fromDate.getDate();
-        
-        
-        reservations.Reservation r=new Reservation();
+        Date dateTo = toDate.getDate();
+
+        reservations.Reservation r = new Reservation();
         ArrayList<Integer> availables = r.checkAvaliability(dateFrom, dateTo);
-        
-        DefaultTableModel tModel=(DefaultTableModel) jTable2.getModel();
-        
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
-        
-        for(int id:availables){
-            reservations.ReceptionHall hall=new ReceptionHall(id);
-            tModel.addRow(new Object[]{sdf.format(dateFrom)+" - "+sdf.format(dateTo),hall.getName()});
+
+        DefaultTableModel tModel = (DefaultTableModel) jTable2.getModel();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        for (int id : availables) {
+            reservations.ReceptionHall hall = new ReceptionHall(id);
+            halls.add(hall);    
+            tModel.addRow(new Object[]{hall.getName()});
         }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void toDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_toDatePropertyChange
-        
-    }//GEN-LAST:event_toDatePropertyChange
+    private void fromDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fromDatePropertyChange
 
-    private void toDateVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_toDateVetoableChange
-        
-    }//GEN-LAST:event_toDateVetoableChange
+    }//GEN-LAST:event_fromDatePropertyChange
 
-    private void toDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDateMouseClicked
-        toDate.setMinSelectableDate(fromDate.getDate());
-    }//GEN-LAST:event_toDateMouseClicked
+    private void fromDateVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_fromDateVetoableChange
+
+    }//GEN-LAST:event_fromDateVetoableChange
+
+    private void fromDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fromDateMouseClicked
+        fromDate.setMinSelectableDate(toDate.getDate());
+    }//GEN-LAST:event_fromDateMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       int selecetdRow= jTable2.getSelectedRow();
+       if(selecetdRow>=0){
+           
+           
+       }else{
+           MainWindow.showError("Invalid Selection", "Please select a hall to reserve");
+       }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,5 +270,4 @@ public class SearchHalls extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser toDate;
     // End of variables declaration//GEN-END:variables
 
-   
 }

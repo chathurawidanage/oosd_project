@@ -5,11 +5,20 @@
  */
 package ui;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utilities.DataBase;
+
 /**
  *
  * @author Chathura
  */
 public class SearchCustomers extends javax.swing.JInternalFrame {
+
+    ArrayList<elements.Customer> customers = new ArrayList<>();
 
     /**
      * Creates new form SearchCustomers
@@ -30,7 +39,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        keyWordTxt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -46,7 +55,12 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Name or NIC");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        keyWordTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        keyWordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                keyWordTxtKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -56,7 +70,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1)
+                .addComponent(keyWordTxt)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -65,7 +79,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(keyWordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,6 +175,19 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         MainWindow.getInstance().openWindow(addCus);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void keyWordTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyWordTxtKeyReleased
+        try {
+            String keywords = keyWordTxt.getText();
+            ResultSet results = DataBase.getQuery("SELECT id FROM person RIGHT JOIN customer ON person.Id=customer.Id WHERE person.Name LIKE %" + keywords + "% OR person.NIC LIKE %" + keywords + "%");
+            while (results.next()) {
+                
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchCustomers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_keyWordTxtKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -172,8 +199,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField keyWordTxt;
     // End of variables declaration//GEN-END:variables
 
-  
 }
