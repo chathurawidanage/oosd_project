@@ -10,6 +10,6 @@ package reservations;
  *
  * @author aseladarshan
  */
-public class ReceptionHall {
-    private String name;
+public class Reservation {
+    
 }
