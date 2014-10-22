@@ -5,20 +5,23 @@
  */
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Chathura
  */
 public class MainWindow extends javax.swing.JFrame {
-    
+
     public static MainWindow mainWindow;
 
     /**
@@ -27,36 +30,56 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
         mainWindow = this;
-        //this.setUndecorated(true);
+        // this.setUndecorated(true);
+
         this.setExtendedState(MAXIMIZED_BOTH);
         createUI();
-        
-        AddSuplier as = new AddSuplier();
+
+        AddSuplier as = new AddSuplier(false);
         openWindow(as);
-        
+
     }
-    
+
     private void createUI() {
-        
+
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
         JLayeredPane desktop = this.desktop;
-        
-        backgroundTxt.setLocation(0, 0);
-        backgroundTxt.setSize(desktop.getWidth(), desktop.getHeight());
+        desktop.setBounds(0, 60, screen.width, screen.height - 60);
+
         backgroundTxt.setIcon(new ImageIcon(getClass().getResource("/ui/images/background.jpg")));
+        backgroundTxt.setBounds(0, 0, screen.width, screen.height);
+
+        topBar.setSize(screen.width, 60);
+        topBar.setLocation(0, 0);
+
+        //time
+        TimerTask timeUpdate = new TimerTask() {
+
+            @Override
+            public void run() {
+                Date d = new Date();
+                dateTxt.setText(d.getHours() + " : " + d.getMinutes() + " : " + d.getSeconds());
+            }
+        };
+
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(timeUpdate, 0, 1000);
+
+        dateTxt.setBounds(0, screen.height - 150, screen.width - 30, 120);
+
     }
-    
+
     public static MainWindow getInstance() {
         return mainWindow;
     }
-    
+
     public void openWindow(JInternalFrame frame) {
         JLayeredPane desktop = this.desktop;
-        
+
         desktop.add(frame);
-        
-        frame.setLocation((this.desktop.getWidth()), WIDTH);
-        
+
+        frame.setLocation((this.desktop.getWidth() - frame.getWidth()) / 2, (this.desktop.getHeight() - frame.getHeight()) / 2);
         frame.setVisible(true);
     }
 
@@ -69,17 +92,24 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backgroundTxt = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        topBar = new javax.swing.JPanel(){
+            @Override
+            public void paintComponent(Graphics g) {
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+                g.setColor(new Color(0f,0f,0f,0.5f));
+                g.fillRect(0, 0, screen.width, 60);
+            }
+        };
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         desktop = new javax.swing.JLayeredPane();
+        dateTxt = new javax.swing.JLabel();
+        backgroundTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
-
-        backgroundTxt.setText("jLabel1");
-        getContentPane().add(backgroundTxt);
-        backgroundTxt.setBounds(176, 126, 76, 70);
 
         jButton1.setBackground(new java.awt.Color(255, 0, 51));
         jButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -91,25 +121,33 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Invictuz Hotels");
+
+        javax.swing.GroupLayout topBarLayout = new javax.swing.GroupLayout(topBar);
+        topBar.setLayout(topBarLayout);
+        topBarLayout.setHorizontalGroup(
+            topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        topBarLayout.setVerticalGroup(
+            topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addGroup(topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 639, 65);
+        getContentPane().add(topBar);
+        topBar.setBounds(0, 0, 639, 66);
 
         javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
@@ -125,11 +163,23 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().add(desktop);
         desktop.setBounds(397, 184, 242, 116);
 
+        dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
+        dateTxt.setForeground(new java.awt.Color(255, 255, 255));
+        dateTxt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        dateTxt.setText("date");
+        getContentPane().add(dateTxt);
+        dateTxt.setBounds(200, 110, 140, 90);
+        dateTxt.getAccessibleContext().setAccessibleName("date");
+
+        backgroundTxt.setText("jLabel1");
+        getContentPane().add(backgroundTxt);
+        backgroundTxt.setBounds(80, 120, 76, 70);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -176,8 +226,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backgroundTxt;
+    private javax.swing.JLabel dateTxt;
     private javax.swing.JLayeredPane desktop;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 }

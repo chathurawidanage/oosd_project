@@ -9,13 +9,21 @@ package ui;
  *
  * @author Chathura
  */
-public class AddSuplier extends javax.swing.JInternalFrame{
+public class AddSuplier extends javax.swing.JInternalFrame {
+
+    private boolean isSupplier;
 
     /**
      * Creates new form AddSuplier
      */
-    public AddSuplier() {
+    public AddSuplier(boolean supplier) {
         initComponents();
+        this.isSupplier = supplier;
+        if (supplier) {
+            titleTxt.setText("New Supplier");
+        } else {
+            titleTxt.setText("New Customer");
+        }
     }
 
     /**
@@ -27,7 +35,7 @@ public class AddSuplier extends javax.swing.JInternalFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titleTxt = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nameTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -44,8 +52,8 @@ public class AddSuplier extends javax.swing.JInternalFrame{
 
         setClosable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("New Supplier");
+        titleTxt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        titleTxt.setText("New Supplier");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Name");
@@ -112,7 +120,7 @@ public class AddSuplier extends javax.swing.JInternalFrame{
                         .addGap(18, 18, 18)
                         .addComponent(nameTxt))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(titleTxt)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,7 +148,7 @@ public class AddSuplier extends javax.swing.JInternalFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleTxt)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -182,10 +190,10 @@ public class AddSuplier extends javax.swing.JInternalFrame{
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        String name=nameTxt.getText();
-        String address=addressTxt.getText();
-        String contact=contactTxt.getText();
-        String additionalDetails=addressTxt.getText();
+        String name = nameTxt.getText();
+        String address = addressTxt.getText();
+        String contact = contactTxt.getText();
+        String additionalDetails = addressTxt.getText();
     }//GEN-LAST:event_saveBtnActionPerformed
 
 
@@ -194,7 +202,6 @@ public class AddSuplier extends javax.swing.JInternalFrame{
     private javax.swing.JButton cancelBtn;
     private javax.swing.JTextField contactTxt;
     private javax.swing.JTextArea detailsTxt;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -204,5 +211,6 @@ public class AddSuplier extends javax.swing.JInternalFrame{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JLabel titleTxt;
     // End of variables declaration//GEN-END:variables
 }
