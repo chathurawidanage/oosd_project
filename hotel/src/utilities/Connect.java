@@ -24,7 +24,7 @@ class Connect {
 
     private Connection Conn() {
         a = null;
-        url = "jdbc:mysql://localhost:3306/";
+        url = "jdbc:mysql://10.10.28.107:3306/";
         driver = "com.mysql.jdbc.Driver";
         uname = "root";
         pword = "";
