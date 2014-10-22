@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ui.MainWindow;
 import utilities.DataBase;
 
 /**
@@ -30,7 +33,7 @@ public class Transaction {
     }
     
     // Create transaction from the db using id
-    public Transaction(int id) throws SQLException {
+    public Transaction(int id){
         ArrayList<String> col = new ArrayList<>();
         col.add("date");
         col.add("amount");
@@ -39,13 +42,16 @@ public class Transaction {
         col.add("type");
 
         ResultSet results = DataBase.select("transactions", col, "id = " + id);
-
-        if (results.next()) {
-            this.date = results.getDate("date");
-            this.amount = results.getDouble("amount");
-            this.user = results.getInt("user");
-            this.details = results.getString("details");
-            this.type = results.getInt("type");
+        try {
+            if (results.next()) {
+                this.date = results.getDate("date");
+                this.amount = results.getDouble("amount");
+                this.user = results.getInt("user");
+                this.details = results.getString("details");
+                this.type = results.getInt("type");
+            }
+        } catch (SQLException ex) {
+            //
         }
 
     }

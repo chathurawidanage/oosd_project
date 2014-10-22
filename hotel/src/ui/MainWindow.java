@@ -9,9 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,11 +25,15 @@ import lk.chathurawidanage.motions.linearmotion.LinearMotion;
  * @author Chathura Widanage<chathurawidanage@gmail.com>
  */
 public class MainWindow extends javax.swing.JFrame {
-    
+
     private static MainWindow mainWindow;
     private Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-    
+
     private boolean showigMainIcons = true;
+
+    public final static int UI_ADD_HALL = 0;
+    public final static int UI_ADD_SUPP = 1;
+    public final static int UI_ADD_CUS = 2;
 
     /**
      * Creates new form MainWindow
@@ -42,37 +45,48 @@ public class MainWindow extends javax.swing.JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
         createUI();
-        
-        AddSupCus as = new AddSupCus(false);
-        openWindow(as);
-        
+
         Icon i = new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
         iconPanel.add(i);
-        
+        SubIcon i5 = new SubIcon("Add Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")), UI_ADD_SUPP);
+        i.addSubIcon(i5);
+
         Icon i2 = new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
         iconPanel.add(i2);
-        
+
         Icon i3 = new Icon("Halls", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")));
         iconPanel.add(i3);
-        
+
         Icon i4 = new Icon("Accounts", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
         iconPanel.add(i4);
-        
-        SubIcon i5 = new SubIcon("Add Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
-        subIconPanel.add(i5);
-        
+
     }
-    
+
     /**
      * Shows an error to the user
+     *
      * @param title title of the error message
      * @param error the content of the error message
      */
-    public void showError(String title, String error) {
-        JOptionPane.showMessageDialog(this, title, error, JOptionPane.ERROR_MESSAGE);
+    public static void showError(String title, String error) {
+        JOptionPane.showMessageDialog(MainWindow.getInstance(), title, error, JOptionPane.ERROR_MESSAGE);
     }
-    
-    
+
+    public void generateSubWindow(int ui) {
+        switch (ui) {
+            case UI_ADD_HALL:
+                openWindow(new AddHall());
+                break;
+            case UI_ADD_SUPP:
+                openWindow(new AddSupCus(true));
+                break;
+
+            case UI_ADD_CUS:
+                openWindow(new AddSupCus(false));
+                break;
+        }
+    }
+
     /**
      * Swaps between two icon panels
      */
@@ -82,7 +96,7 @@ public class MainWindow extends javax.swing.JFrame {
             LinearMotion lm = new LinearMotion(iconPanel);
             lm.setSpeed(50);
             lm.moveY(-screen.height);
-            
+
             LinearMotion lm2 = new LinearMotion(subIconPanel);
             lm2.setSpeed(40);
             lm2.moveY(80);
@@ -91,38 +105,49 @@ public class MainWindow extends javax.swing.JFrame {
             LinearMotion lm = new LinearMotion(iconPanel);
             lm.setSpeed(80);
             lm.moveY(100);
-            
+
             LinearMotion lm2 = new LinearMotion(subIconPanel);
             lm2.setSpeed(50);
             lm2.moveY(screen.height);
         }
     }
-    
+
     /**
      * Sets the title of the icon panel
-     * @param title 
+     *
+     * @param title
      */
     public void setSubIconPanelTitle(String title) {
         this.subIconTxt.setText(title);
     }
-    
+
+    public void removeAllInSubIconPanel() {
+        //subIconPanel.removeAll();
+    }
+
+    public void addToSubIconPanel(ArrayList<SubIcon> icons) {
+        for (SubIcon icon : icons) {
+            subIconContainer.add(icon);
+        }
+    }
+
     /**
      * Creates all the UI components
      */
     private void createUI() {
-        
+
         JLayeredPane desktop = this.desktop;
         desktop.setBounds(360, 80, screen.width - 360, screen.height - 80);
-        
+
         backgroundTxt.setIcon(new ImageIcon(getClass().getResource("/ui/images/background.jpg")));
         backgroundTxt.setBounds(0, 0, screen.width, screen.height);
-        
+
         topBar.setSize(screen.width, 60);
         topBar.setLocation(0, 0);
 
         //time
         TimerTask timeUpdate = new TimerTask() {
-            
+
             @Override
             public void run() {
                 Date d = new Date();
@@ -130,44 +155,51 @@ public class MainWindow extends javax.swing.JFrame {
                 dateTxt.setText(String.format("%02d", d.getHours()) + ":" + String.format("%02d", d.getMinutes()) + ":" + String.format("%02d", d.getSeconds()));
             }
         };
-        
+
         Timer t = new Timer();
         t.scheduleAtFixedRate(timeUpdate, 0, 1000);
-        
+
         dateTxt.setBounds(0, screen.height - 150, screen.width - 30, 120);
-        
+
         iconPanel.setBounds(20, 100, 360, screen.height);
         iconPanel.setOpaque(false);
-        
+
         subIconPanel.setBounds(20, screen.height, 360, screen.height);
         subIconPanel.setOpaque(false);
-        
+
+        backLbl.setBounds(0, 0, subIconPanel.getWidth(), 60);
+        subIconTxt.setBounds(0, 60, subIconPanel.getWidth(), 100);
+        subIconContainer.setBounds(0, 160, subIconPanel.getWidth(), screen.height - 160);
+        subIconContainer.setOpaque(false);
+
     }
-    
+
     /**
      * Return the current instance of the MainWindow
-     * @return 
+     *
+     * @return
      */
     public static MainWindow getInstance() {
         return mainWindow;
     }
-    
+
     /**
      * Opens a sub window inside the main window
-     * @param frame 
+     *
+     * @param frame
      */
     public void openWindow(JInternalFrame frame) {
         JLayeredPane desktop = this.desktop;
-        
+
         desktop.add(frame);
-        
+
         LinearMotion lm = new LinearMotion(frame);
         lm.setSpeed(100);
-        
+
         frame.setLocation((this.desktop.getWidth()), (this.desktop.getHeight() - frame.getHeight()) / 2);
-        
+
         lm.moveX((desktop.getWidth() - frame.getWidth()) / 2);
-        
+
         frame.setVisible(true);
     }
 
@@ -196,6 +228,7 @@ public class MainWindow extends javax.swing.JFrame {
         subIconPanel = new javax.swing.JPanel();
         backLbl = new javax.swing.JLabel();
         subIconTxt = new javax.swing.JLabel();
+        subIconContainer = new javax.swing.JPanel();
         dateTxt = new javax.swing.JLabel();
         backgroundTxt = new javax.swing.JLabel();
 
@@ -261,6 +294,7 @@ public class MainWindow extends javax.swing.JFrame {
         iconPanel.setBounds(470, 90, 160, 170);
 
         subIconPanel.setBackground(new java.awt.Color(255, 102, 51));
+        subIconPanel.setLayout(null);
 
         backLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         backLbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -274,6 +308,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         subIconPanel.add(backLbl);
+        backLbl.setBounds(0, 1, 310, 36);
 
         subIconTxt.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         subIconTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -281,9 +316,14 @@ public class MainWindow extends javax.swing.JFrame {
         subIconTxt.setText("Title");
         subIconTxt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         subIconPanel.add(subIconTxt);
+        subIconTxt.setBounds(0, 37, 310, 36);
+
+        subIconContainer.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        subIconPanel.add(subIconContainer);
+        subIconContainer.setBounds(0, 73, 310, 36);
 
         getContentPane().add(subIconPanel);
-        subIconPanel.setBounds(110, 180, 100, 100);
+        subIconPanel.setBounds(10, 180, 310, 110);
 
         dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 130)); // NOI18N
         dateTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -358,6 +398,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel iconPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel subIconContainer;
     private javax.swing.JPanel subIconPanel;
     private javax.swing.JLabel subIconTxt;
     private javax.swing.JPanel topBar;

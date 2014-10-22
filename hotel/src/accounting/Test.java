@@ -18,10 +18,13 @@ public class Test {
     
     public static void main(String[] args) throws SQLException {
         Transaction test;
-        //test = new Transaction(new Date(2014, 10, 22), 4500.00, "Test Transaction", 10);
+        Ledger ledger = new Ledger();
+        System.out.println(ledger.getCurrentBalance());
+        test = new Transaction(new Date(2014, 10, 22), 2785.45,1, "Test Transaction", 10);
         
-        test = new Transaction(2);
+        //test = new Transaction(2);
         
-        //System.out.println(test.Save());
+        System.out.println(test.Save());
+        //System.out.println(test.deleteTransaction(2));
     }
 }

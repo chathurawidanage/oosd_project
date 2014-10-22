@@ -18,17 +18,22 @@ public class SubIcon extends javax.swing.JPanel {
 
     private boolean mouseOver = false;
     private String title;
+    private int ui;
+
 
     /**
      * Creates new form Icon
      */
-    public SubIcon(String title, ImageIcon icon) {
+    public SubIcon(String title, ImageIcon icon,int ui) {
         initComponents();
         iconLbl.setText(title);
         iconLbl.setIcon(icon);
         this.setOpaque(false);
 
         this.title = title;
+        this.ui=ui;
+
+       
         //this.setBackground(Color.BLACK);
     }
 
@@ -101,9 +106,7 @@ public class SubIcon extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseExited
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        MainWindow.getInstance().swapIconPanels();
-
-        MainWindow.getInstance().setSubIconPanelTitle(title);
+        MainWindow.getInstance().generateSubWindow(ui);
     }//GEN-LAST:event_formMouseClicked
 
 

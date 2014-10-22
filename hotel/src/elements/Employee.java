@@ -2,6 +2,7 @@
 package elements;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Derived class from the Person class 
@@ -14,6 +15,7 @@ public class Employee extends Person {
     private Double salary =0.0;
     private boolean isWorking = false ; // working or temp or perm signed out
     private String post ="" ;    // the post of the employer , eg: manager 
+    private HashMap hMap = new HashMap() ;
      
      
      // state changing methods
@@ -74,21 +76,32 @@ public class Employee extends Person {
         this.post = post;
     }
     
-    public void save() {
+    public void Save() {
         
-        save( "Employee") ;  // save in the employee database
+          int id = super.save() ;
+          if( id >=0) {
+              
+              hMap.put("employeeId", id) ;
+              utilities.DataBase.insert("employee", "Id", hMap) ;
+              
+              
+              
+          }else {
+              
+              // return error message
+          }
         
     }
      
      
     //constructors
     
-    public Employee(String Id, String name, String address, String contact , Double salary , String post ) {
-        super(Id, name, address, contact) ;
+    public Employee(String Id, String name, String address, String contact , Double salary , String post , String Details) {
+        super(Id, name, address, contact , Details) ;
         this.salary = salary ;
         this.post = post ;
-        addToHashMap("Salary", salary );
-        addToHashMap("post", post );
+        hMap.put("salary", salary) ;
+        hMap.put("post", post) ;
     }
     
     

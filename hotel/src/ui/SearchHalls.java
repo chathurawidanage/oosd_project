@@ -168,8 +168,8 @@ public class SearchHalls extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Date dateTo = toDate.getDate();
         Date dateFrom = fromDate.getDate();
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -186,4 +186,6 @@ public class SearchHalls extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable2;
     private com.toedter.calendar.JDateChooser toDate;
     // End of variables declaration//GEN-END:variables
+
+   
 }
