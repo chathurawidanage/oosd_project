@@ -52,7 +52,7 @@ public class Transaction {
     
     // Delete a transaction from the database using id
     public boolean deleteTransaction(int id){
-        return DataBase.setQuery(details);
+        return DataBase.delete("transactions", "id = " + id);
     }
 
     // save in the database
@@ -97,6 +97,14 @@ public class Transaction {
     
     // to be modifiied with new transaction types
     public String getTypeString(){
-        
+        switch(this.type){
+            case 1:
+                return "Cash Receiving";
+            case -1:
+                return "Bill Payment";
+            default:
+                return "Other";
+                
+        }
     }
 }
