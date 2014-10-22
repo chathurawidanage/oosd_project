@@ -31,7 +31,7 @@ public class Person {
         try {
             ArrayList getCol = new ArrayList();
             getCol.add("Id") ;
-            ResultSet set = utilities.DataBase.select("person", getCol, "NIC = "+Id) ;
+            ResultSet set = utilities.DataBase.select("person", getCol, "NIC = '"+Id+"'") ;
             set.next();
             return  set.getInt("Id") ;
              

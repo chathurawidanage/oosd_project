@@ -19,7 +19,7 @@ import utilities.DataBase;
  * @author Chathura
  */
 public class SearchCustomers extends javax.swing.JInternalFrame {
-    
+
     private ArrayList<elements.Customer> customers = new ArrayList<>();
     private CustomerSearchable caller;
 
@@ -28,7 +28,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
      */
     public SearchCustomers(CustomerSearchable caller) {
         initComponents();
-        this.caller=caller;
+        this.caller = caller;
     }
 
     /**
@@ -187,16 +187,18 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
     private void keyWordTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyWordTxtKeyReleased
         try {
             String keywords = keyWordTxt.getText();
-            ResultSet results = DataBase.getQuery("SELECT id FROM person RIGHT JOIN customer ON person.Id=customer.Id WHERE person.Name LIKE %" + keywords + "% OR person.NIC LIKE %" + keywords + "%");
+            String qry = "SELECT customer.Id FROM customer JOIN person ON person.Id=customer.Id WHERE person.Name LIKE '%" + keywords + "%' OR person.NIC LIKE '%" + keywords + "%'";
+            System.out.println(qry);
+            ResultSet results = DataBase.getQuery(qry);
             while (!customers.isEmpty()) {
                 customers.remove(0);
             }
-            
+
             DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
             while (jTable1.getRowCount() > 0) {
                 dtm.removeRow(0);
             }
-            
+
             while (results.next()) {
                 int cusInt = results.getInt("Id");
                 elements.Customer cus = new Customer(cusInt);
@@ -210,10 +212,10 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        if(selectedRow>=0){
+        if (selectedRow >= 0) {
             caller.setCustomer(customers.get(selectedRow));
             this.dispose();
-        }else{
+        } else {
             MainWindow.showError("Slection error", "Please select a customer from the list.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
