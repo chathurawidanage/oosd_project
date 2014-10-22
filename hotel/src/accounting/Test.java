@@ -5,6 +5,7 @@
  */
 package accounting;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -13,9 +14,14 @@ import java.util.Date;
  */
 public class Test {
 
-    public static void main(String[] args) {
-        Transaction test = new Transaction(new Date(2014, 10, 22), 4500.00, "TestTransaction", true);
-
-        System.out.println(test.Save());
+   
+    
+    public static void main(String[] args) throws SQLException {
+        Transaction test;
+        //test = new Transaction(new Date(2014, 10, 22), 4500.00, "Test Transaction", 10);
+        
+        test = new Transaction(2);
+        
+        //System.out.println(test.Save());
     }
 }
