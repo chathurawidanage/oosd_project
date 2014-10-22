@@ -36,9 +36,10 @@ public class Reservation {
             arr = (int[]) DataBase.select("halls",list,"1=1").getArray("id").getArray();
             NoOfHalls=arr.length;
         } catch (SQLException ex) {
+            MainWindow.showError("Database Error!","Error while connecting to the database.");
         }
         catch(NullPointerException ex){
-           MainWindow.showError("Reservation Error!","Error while connecting to the database.");
+           MainWindow.showError("Database Error!","Error while connecting to the database.");
         }
                 
     }
