@@ -60,14 +60,13 @@ public class Reservation {
     public boolean reserve(Customer customer,ReceptionHall hall,Date date,boolean payment,double amount){
         HashMap map=new HashMap();
         int hallID=hall.getId();
-        String customerID=customer.getId();
+        int customerID=customer.getId();
         int insert;
         map.put(date,hallID);
         insert = DataBase.insert(dbTable,"Date",map);
         map.put(insert,customerID);
         DataBase.insert(dbTable,"CustomerID",map);
-      //  Ledger.addReservation(true, insert,customer.getId(),customer.getName(),hall.getName());
-        //Ledger.
+        Ledger.addReservation(true, insert,customer.getId(),customer.getName(),hall.getName());
         return true;
     }
 
