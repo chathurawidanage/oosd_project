@@ -9,14 +9,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.text.Format;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.text.NumberFormatter;
+import lk.chathurawidanage.motions.linearmotion.LinearMotion;
 
 /**
  *
@@ -39,13 +39,18 @@ public class MainWindow extends javax.swing.JFrame {
 
         AddSuplier as = new AddSuplier(false);
         openWindow(as);
-        
-        Icon i=new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
+
+        Icon i = new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
         iconPanel.add(i);
-        
-        Icon i2=new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
+
+        Icon i2 = new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
         iconPanel.add(i2);
 
+        Icon i3 = new Icon("Halls", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")));
+        iconPanel.add(i3);
+
+        Icon i4 = new Icon("Accounts", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
+        iconPanel.add(i4);
 
     }
 
@@ -54,7 +59,7 @@ public class MainWindow extends javax.swing.JFrame {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
         JLayeredPane desktop = this.desktop;
-        desktop.setBounds(0, 60, screen.width, screen.height - 60);
+        desktop.setBounds(360, 80, screen.width - 360, screen.height - 80);
 
         backgroundTxt.setIcon(new ImageIcon(getClass().getResource("/ui/images/background.jpg")));
         backgroundTxt.setBounds(0, 0, screen.width, screen.height);
@@ -68,7 +73,8 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void run() {
                 Date d = new Date();
-                dateTxt.setText(d.getHours() + " : " + d.getMinutes() + " : " + d.getSeconds());
+                DecimalFormat df = new DecimalFormat("##");
+                dateTxt.setText(String.format("%02d", d.getHours()) + ":" + String.format("%02d", d.getMinutes()) + ":" + String.format("%02d", d.getSeconds()));
             }
         };
 
@@ -76,8 +82,8 @@ public class MainWindow extends javax.swing.JFrame {
         t.scheduleAtFixedRate(timeUpdate, 0, 1000);
 
         dateTxt.setBounds(0, screen.height - 150, screen.width - 30, 120);
-        
-        iconPanel.setBounds(50, 100, screen.width, screen.height);
+
+        iconPanel.setBounds(20, 100, 360, screen.height);
         iconPanel.setOpaque(false);
 
     }
@@ -91,7 +97,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         desktop.add(frame);
 
-        frame.setLocation((this.desktop.getWidth() - frame.getWidth()) / 2, (this.desktop.getHeight() - frame.getHeight()) / 2);
+        LinearMotion lm = new LinearMotion(frame);
+        lm.setSpeed(100);
+
+        frame.setLocation((this.desktop.getWidth()), (this.desktop.getHeight() - frame.getHeight()) / 2);
+
+        lm.moveX((desktop.getWidth() - frame.getWidth()) / 2);
+
         frame.setVisible(true);
     }
 
@@ -181,12 +193,12 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().add(iconPanel);
         iconPanel.setBounds(470, 90, 160, 170);
 
-        dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
+        dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 130)); // NOI18N
         dateTxt.setForeground(new java.awt.Color(255, 255, 255));
         dateTxt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         dateTxt.setText("date");
         getContentPane().add(dateTxt);
-        dateTxt.setBounds(200, 110, 140, 90);
+        dateTxt.setBounds(200, 110, 150, 100);
         dateTxt.getAccessibleContext().setAccessibleName("date");
 
         backgroundTxt.setText("jLabel1");

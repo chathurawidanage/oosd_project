@@ -6,7 +6,6 @@
 package ui;
 
 import java.util.Date;
-import reservations.Reservation;
 
 /**
  *
@@ -115,6 +114,7 @@ public class SearchHalls extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jTable2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
