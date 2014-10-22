@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -20,11 +22,14 @@ import lk.chathurawidanage.motions.linearmotion.LinearMotion;
 
 /**
  *
- * @author Chathura
+ * @author Chathura Widanage<chathurawidanage@gmail.com>
  */
 public class MainWindow extends javax.swing.JFrame {
 
-    public static MainWindow mainWindow;
+    private static MainWindow mainWindow;
+    private Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+    private boolean showigMainIcons = true;
 
     /**
      * Creates new form MainWindow
@@ -54,9 +59,33 @@ public class MainWindow extends javax.swing.JFrame {
 
     }
 
-    private void createUI() {
+    public void swapIconPanels() {
+        if (showigMainIcons) {
+            showigMainIcons = false;
+            LinearMotion lm = new LinearMotion(iconPanel);
+            lm.setSpeed(50);
+            lm.moveY(-screen.height);
 
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            LinearMotion lm2 = new LinearMotion(subIconPanel);
+            lm2.setSpeed(40);
+            lm2.moveY(80);
+        } else {
+            showigMainIcons = true;
+            LinearMotion lm = new LinearMotion(iconPanel);
+            lm.setSpeed(80);
+            lm.moveY(100);
+
+            LinearMotion lm2 = new LinearMotion(subIconPanel);
+            lm2.setSpeed(50);
+            lm2.moveY(screen.height);
+        }
+    }
+
+    public void setSubIconPanelTitle(String title) {
+        this.subIconTxt.setText(title);
+    }
+
+    private void createUI() {
 
         JLayeredPane desktop = this.desktop;
         desktop.setBounds(360, 80, screen.width - 360, screen.height - 80);
@@ -85,6 +114,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         iconPanel.setBounds(20, 100, 360, screen.height);
         iconPanel.setOpaque(false);
+
+        subIconPanel.setBounds(20, screen.height, 360, screen.height);
+        subIconPanel.setOpaque(false);
 
     }
 
@@ -129,6 +161,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         desktop = new javax.swing.JLayeredPane();
         iconPanel = new javax.swing.JPanel();
+        subIconPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        subIconTxt = new javax.swing.JLabel();
         dateTxt = new javax.swing.JLabel();
         backgroundTxt = new javax.swing.JLabel();
 
@@ -193,6 +228,31 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().add(iconPanel);
         iconPanel.setBounds(470, 90, 160, 170);
 
+        subIconPanel.setBackground(new java.awt.Color(255, 102, 51));
+        subIconPanel.setLayout(new javax.swing.BoxLayout(subIconPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons/up.png"))); // NOI18N
+        jLabel2.setText("Back to main");
+        jLabel2.setToolTipText("");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        subIconPanel.add(jLabel2);
+
+        subIconTxt.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        subIconTxt.setForeground(new java.awt.Color(255, 255, 255));
+        subIconTxt.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        subIconTxt.setText("Title");
+        subIconTxt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        subIconPanel.add(subIconTxt);
+
+        getContentPane().add(subIconPanel);
+        subIconPanel.setBounds(110, 180, 100, 100);
+
         dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 130)); // NOI18N
         dateTxt.setForeground(new java.awt.Color(255, 255, 255));
         dateTxt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -211,6 +271,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        swapIconPanels();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -261,6 +325,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel iconPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel subIconPanel;
+    private javax.swing.JLabel subIconTxt;
     private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 }

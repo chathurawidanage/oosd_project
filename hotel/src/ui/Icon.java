@@ -17,6 +17,7 @@ import lk.chathurawidanage.veffects.Bounce;
 public class Icon extends javax.swing.JPanel {
 
     private boolean mouseOver = false;
+    private String title;
 
     /**
      * Creates new form Icon
@@ -26,6 +27,8 @@ public class Icon extends javax.swing.JPanel {
         titileLbl.setText(title);
         iconLbl.setIcon(icon);
         this.setOpaque(false);
+
+        this.title = title;
         //this.setBackground(Color.BLACK);
     }
 
@@ -101,13 +104,14 @@ public class Icon extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseEntered
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
-        mouseOver=false;
+        mouseOver = false;
         this.repaint();
     }//GEN-LAST:event_formMouseExited
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        Bounce b = new Bounce(this, 5);
-        b.play();
+        MainWindow.getInstance().swapIconPanels();
+
+        MainWindow.getInstance().setSubIconPanelTitle(title);
     }//GEN-LAST:event_formMouseClicked
 
 
