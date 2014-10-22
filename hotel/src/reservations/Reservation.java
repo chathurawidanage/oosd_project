@@ -20,18 +20,22 @@ import utilities.DataBase;
  * @author aseladarshan
  */
 public class Reservation {
-    private final int NoOfHalls;
-    private final ReceptionHall[] receptionHall;
+    private int NoOfHalls;
     private ArrayList<String> dbCols;
     private final String dbTable;
     public Reservation(){
         dbCols.add("Date");
         dbCols.add("hall");
         dbTable="reservations";
-        manageHalls mh=new manageHalls();
-        receptionHall=manageHalls.getReceptionHall();
-        NoOfHalls=manageHalls.getNoOfHalls();
-            
+        ArrayList<String> list=new ArrayList<>();
+        list.add("id");
+        int[] arr;
+        try {
+            arr = (int[]) DataBase.select("halls",list,"1=1").getArray("id").getArray();
+            NoOfHalls=arr.length;
+        } catch (SQLException ex) {
+        }
+                
     }
     
         /**

@@ -5,6 +5,8 @@
  */
 package ui;
 
+import reservations.manageHalls;
+
 /**
  *
  * @author Chathura
@@ -109,7 +111,7 @@ public class AddHall extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -121,4 +123,6 @@ public class AddHall extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+  
 }
