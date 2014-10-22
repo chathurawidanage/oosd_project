@@ -38,7 +38,7 @@ public class Reservation {
         } catch (SQLException ex) {
         }
         catch(NullPointerException ex){
-           // MainWindow.s
+           MainWindow.showError("Reservation Error!","Error while connecting to the database.");
         }
                 
     }
