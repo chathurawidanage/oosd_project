@@ -5,6 +5,7 @@
  */
 package ui;
 
+import elements.Customer;
 import elements.Supplier;
 
 /**
@@ -215,12 +216,14 @@ public class AddSupCus extends javax.swing.JInternalFrame {
         String name = nameTxt.getText();
         String address = addressTxt.getText();
         String contact = contactTxt.getText();
-        String additionalDetails = addressTxt.getText();
+        String additionalDetails = detailsTxt.getText();
         String nic = nicTxt.getText();
         if (isSupplier) {
             elements.Supplier sup = new Supplier(nic, name, address, contact, additionalDetails);
-
-            sup.save();
+            sup.Save();
+        }else{
+            elements.Customer cus=new Customer(nic, name, address, contact, additionalDetails);
+            cus.Save();
         }
 
     }//GEN-LAST:event_saveBtnActionPerformed
@@ -249,4 +252,3 @@ public class AddSupCus extends javax.swing.JInternalFrame {
     private javax.swing.JLabel titleTxt;
     // End of variables declaration//GEN-END:variables
 }
-   

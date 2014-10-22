@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package reservations;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilities.DataBase;
 
 /**
@@ -14,11 +17,25 @@ import utilities.DataBase;
  * @author aseladarshan
  */
 public class ReceptionHall {
+
     private String name;
     private int id;
-    public ReceptionHall(String name){
-        this.addHall(name);
+
+    public ReceptionHall(String name) {
+        this.name = name;
     }
+    
+    public ReceptionHall(int id) {
+        this.id = id;
+        //call db and
+        ResultSet rs = DataBase.selectAll("halls","id='" + id + "'");
+        try {
+            name=rs.getArray("name").toString();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceptionHall.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * @return the name
      */
@@ -46,12 +63,12 @@ public class ReceptionHall {
     public void setId(int id) {
         this.id = id;
     }
-    public int addHall(String name){
-        this.name=name;
-        HashMap map=new HashMap();
-        map.put("Name",name);
-        int ID = DataBase.insert("halls","id",map);
-        this.id=ID;
+
+    public int save() {      
+        HashMap map = new HashMap();
+        map.put("Name", name);
+        int ID = DataBase.insert("halls", "id", map);
+        this.id = ID;
         return ID;
     }
 }

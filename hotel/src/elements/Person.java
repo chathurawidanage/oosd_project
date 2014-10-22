@@ -13,6 +13,7 @@ public class Person {
     private String name = "";
     private String address = "";
     private String contact = "";
+    private String Details = "" ;
     private HashMap hash = new HashMap();
 
     // get set methods for the private variables
@@ -26,6 +27,14 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public String getDetails() {
+        return Details;
+    }
+
+    public void setDetails(String Details) {
+        this.Details = Details;
     }
 
     public void setName(String name) {
@@ -49,7 +58,7 @@ public class Person {
     }
 
     // save the objects in the database calling the database object
-    public String save(String table) {
+    protected int  save() {
 
         if (isValidID(Id)) {
             // a valid Id input
@@ -57,19 +66,20 @@ public class Person {
                 // valid name and a ID
                 if (isValidContact(contact)) {
                     // all the feids are ready to be saved
-                    utilities.DataBase.insert(table, "Id", hash); // add to the table  
-                    return "Success";
+                    int id = utilities.DataBase.insert("person", "Id", hash); // add to the table 
+                    return id;  // return the primary id of the table
+         
 
                 } else {
-                    return "Invalid Contact";
+                    return -1;
                 }
 
             } else {
-                return "Invalid Name";
+                return -1;
             }
 
         } else {
-            return "Invalid ID"; // inu
+            return -1; // inu
         }
     }
 
@@ -146,17 +156,19 @@ public class Person {
     }
 
     // constructor for the person class
-    public Person(String Id, String name, String address, String contact) {
+    public Person(String Id, String name, String address, String contact , String details) {
 
         
         this.Id = Id;
         this.name = name;
         this.address = address;
         this.contact = contact;
+        this.Details = details ;
         addToHashMap("NIC", Id);
         addToHashMap("Name", name);
         addToHashMap("Address", address);
         addToHashMap("Contact", contact);
+        addToHashMap("Details", Details);
        
 
     }
