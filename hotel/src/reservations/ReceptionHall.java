@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package reservations;
 
 import java.util.HashMap;
@@ -14,11 +13,19 @@ import utilities.DataBase;
  * @author aseladarshan
  */
 public class ReceptionHall {
+
     private String name;
     private int id;
-    public ReceptionHall(String name){
-        this.addHall(name);
+
+    public ReceptionHall(String name) {
+        this.name = name;
     }
+    
+    public ReceptionHall(int id) {
+        this.id = id;
+        //call db and 
+    }
+
     /**
      * @return the name
      */
@@ -46,12 +53,13 @@ public class ReceptionHall {
     public void setId(int id) {
         this.id = id;
     }
-    public int addHall(String name){
-        this.name=name;
-        HashMap map=new HashMap();
-        map.put("Name",name);
-        int ID = DataBase.insert("halls","id",map);
-        this.id=ID;
+
+    public int save() {
+        this.name = name;
+        HashMap map = new HashMap();
+        map.put("Name", name);
+        int ID = DataBase.insert("halls", "id", map);
+        this.id = ID;
         return ID;
     }
 }
