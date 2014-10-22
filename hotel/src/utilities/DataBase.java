@@ -71,6 +71,7 @@ public class DataBase {
             return con.setQuery(sql, returnCol);
         }
 
+        System.out.println(sql);
         if (con.setQuery(sql)) {
             return 0;//successfull
         } else {

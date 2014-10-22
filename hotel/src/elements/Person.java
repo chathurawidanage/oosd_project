@@ -56,7 +56,6 @@ public class Person {
             if (isValidName(name)) {
                 // valid name and a ID
                 if (isValidContact(contact)) {
-
                     // all the feids are ready to be saved
                     utilities.DataBase.insert(table, "Id", hash); // add to the table  
                     return "Success";

@@ -14,7 +14,7 @@ import lk.chathurawidanage.veffects.Bounce;
  *
  * @author Chathura
  */
-public class Icon extends javax.swing.JPanel {
+public class SubIcon extends javax.swing.JPanel {
 
     private boolean mouseOver = false;
     private String title;
@@ -22,9 +22,9 @@ public class Icon extends javax.swing.JPanel {
     /**
      * Creates new form Icon
      */
-    public Icon(String title, ImageIcon icon) {
+    public SubIcon(String title, ImageIcon icon) {
         initComponents();
-        titileLbl.setText(title);
+        iconLbl.setText(title);
         iconLbl.setIcon(icon);
         this.setOpaque(false);
 
@@ -35,12 +35,11 @@ public class Icon extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         if (mouseOver) {
-
             g.setColor(new Color(0f, 0f, 0f, 0.3f));
         } else {
             g.setColor(new Color(0f, 0f, 0f, 0.1f));
         }
-        g.fillRoundRect(0, 0, 135, 135, 20, 20);
+        g.fillRoundRect(0, 0, 260, 100, 20, 20);
     }
 
     /**
@@ -53,7 +52,6 @@ public class Icon extends javax.swing.JPanel {
     private void initComponents() {
 
         iconLbl = new javax.swing.JLabel();
-        titileLbl = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,13 +66,11 @@ public class Icon extends javax.swing.JPanel {
             }
         });
 
-        iconLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        iconLbl.setForeground(new java.awt.Color(255, 255, 255));
+        iconLbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         iconLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons/supplier.png"))); // NOI18N
-
-        titileLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        titileLbl.setForeground(new java.awt.Color(255, 255, 255));
-        titileLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titileLbl.setText("jLabel2");
+        iconLbl.setText("sd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -82,19 +78,15 @@ public class Icon extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iconLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                    .addComponent(titileLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(iconLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(iconLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(titileLbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(iconLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -117,6 +109,5 @@ public class Icon extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel iconLbl;
-    private javax.swing.JLabel titileLbl;
     // End of variables declaration//GEN-END:variables
 }

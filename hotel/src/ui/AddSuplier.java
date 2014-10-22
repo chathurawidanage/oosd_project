@@ -5,6 +5,8 @@
  */
 package ui;
 
+import elements.Supplier;
+
 /**
  *
  * @author Chathura
@@ -49,6 +51,8 @@ public class AddSuplier extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         cancelBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        nicTxt = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -107,6 +111,16 @@ public class AddSuplier extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("NIC");
+
+        nicTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nicTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nicTxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,7 +152,11 @@ public class AddSuplier extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(saveBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(cancelBtn)))
+                        .addComponent(cancelBtn))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(nicTxt)))
                 .addContainerGap())
         );
 
@@ -162,16 +180,20 @@ public class AddSuplier extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(contactTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nicTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtn)
                     .addComponent(saveBtn))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -194,7 +216,18 @@ public class AddSuplier extends javax.swing.JInternalFrame {
         String address = addressTxt.getText();
         String contact = contactTxt.getText();
         String additionalDetails = addressTxt.getText();
+        String nic = nicTxt.getText();
+        if (isSupplier) {
+            elements.Supplier sup = new Supplier(nic, name, address, contact, additionalDetails);
+            
+            sup.save();
+        }
+
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void nicTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nicTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nicTxtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -206,10 +239,12 @@ public class AddSuplier extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nameTxt;
+    private javax.swing.JTextField nicTxt;
     private javax.swing.JButton saveBtn;
     private javax.swing.JLabel titleTxt;
     // End of variables declaration//GEN-END:variables
