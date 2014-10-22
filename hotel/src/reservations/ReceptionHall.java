@@ -5,7 +5,11 @@
  */
 package reservations;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilities.DataBase;
 
 /**
@@ -23,7 +27,13 @@ public class ReceptionHall {
     
     public ReceptionHall(int id) {
         this.id = id;
-        //call db and 
+        //call db and
+        ResultSet rs = DataBase.selectAll("halls","id='" + id + "'");
+        try {
+            name=rs.getArray("name").toString();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceptionHall.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -54,8 +64,7 @@ public class ReceptionHall {
         this.id = id;
     }
 
-    public int save() {
-        this.name = name;
+    public int save() {      
         HashMap map = new HashMap();
         map.put("Name", name);
         int ID = DataBase.insert("halls", "id", map);
