@@ -56,6 +56,9 @@ public final class manageHalls {
     public void addReceptionHall(ReceptionHall receptionHall) {
         manageHalls.receptionHall[NoOfHalls++] = receptionHall;
     }
+    public void addReceptionHall(String name){
+        
+    }
     
         /**
      * @return the NoOfHalls
