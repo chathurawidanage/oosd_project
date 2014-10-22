@@ -5,6 +5,9 @@
  */
 package utilities;
 
+import com.alee.laf.filechooser.FileChooserViewType;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -25,40 +28,59 @@ public class DataBase {
      * @return id of the new column
      */
     public static int insert(String table, String idCol, HashMap<String, Object> data) {
-        String qry = "INSERT INTO " + table + "(";
+        String sql = "INSERT INTO " + table + "(";
         Set<String> cols = data.keySet();
         Iterator<String> colIterator = cols.iterator();
         while (colIterator.hasNext()) {
-            qry += colIterator.next();
+            sql += colIterator.next();
             if (colIterator.hasNext()) {
-                qry += ",";
+                sql += ",";
             }
         }
-        qry += ") VALUES(";
+        sql += ") VALUES(";
 
         colIterator = cols.iterator();
         while (colIterator.hasNext()) {
             Object value = colIterator.next();
             if (value instanceof Number) {
-                qry += value.toString();
+                sql += value.toString();
 
             } else {
-                qry += "'" + value.toString() + "'";
+                sql += "'" + value.toString() + "'";
             }
         }
 
-        qry += ")";
+        sql += ")";
 
         if (idCol != null) {
-            return con.setQuery(qry, idCol);
+            return con.setQuery(sql, idCol);
         }
 
-        if (con.setQuery(qry)) {
+        if (con.setQuery(sql)) {
             return 0;//successfull
         } else {
             return -1;//failed
         }
 
+    }
+
+    /**
+     *
+     * @param table table to select data from
+     * @param cols columns to fetch
+     * @param where conditions to check
+     * @return
+     */
+    public static ResultSet select(String table, ArrayList<String> cols, String where) {
+        String sql = "SELECT ";
+        for (int i = 0; i < cols.size(); i++) {
+            sql += cols.get(i);
+            if (i != cols.size() - 1) {
+                sql += ",";
+            }
+        }
+        sql += " FROM " + table + " WHERE " + where;
+        return con.getQuery(sql);
     }
 
 }
