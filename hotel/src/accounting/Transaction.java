@@ -28,7 +28,8 @@ public class Transaction {
         this.details = details;
         this.type = type;
     }
-
+    
+    // Create transaction from the db using id
     public Transaction(int id) throws SQLException {
         ArrayList<String> col = new ArrayList<>();
         col.add("date");
@@ -48,6 +49,11 @@ public class Transaction {
         }
 
     }
+    
+    // Delete a transaction from the database using id
+    public boolean deleteTransaction(int id){
+        return DataBase.setQuery(details);
+    }
 
     // save in the database
     public int Save() {
@@ -57,10 +63,40 @@ public class Transaction {
         data.put("amount", this.amount);
         data.put("details", this.details);
         data.put("type", this.type);
+        data.put("user", this.user);
 
-        this.id = DataBase.insert("transactions", "id", data);
+        if (this.id == 0) {
+            this.id = DataBase.insert("transactions", "id", data);
+        } else {
+            data.put("id", this.id);
+            DataBase.insert("transactions", "id", data);
+        }
 
         return this.id;
     }
+    
+    public Date getDate(){
+        return this.date;
+    }
+    
+    public double getAmount(){
+        return this.amount;
+    }
+    
+    public String getDetails(){
+        return this.details;
+    }
+    
+    public int getUserId(){
+        return this.user;
+    }
 
+    public int getType(){
+        return this.type;
+    }
+    
+    // to be modifiied with new transaction types
+    public String getTypeString(){
+        
+    }
 }
