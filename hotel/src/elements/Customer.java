@@ -13,8 +13,7 @@ package elements;
 public class Customer extends Person {
     
     
-    private String detailing="";
-    private boolean previosCustomer = false ;
+    private String detailing="";    // customer details 
 
     // Set and set methods
     public String getDetailing() {
@@ -25,22 +24,21 @@ public class Customer extends Person {
         this.detailing = detailing;
     }
 
-    public boolean isPreviosCustomer() {
-        return previosCustomer;
-    }
-
-    public void setPreviosCustomer(boolean previosCustomer) {
-        this.previosCustomer = previosCustomer;
-    }
-    
-    
-
-    
+   public void Save(){
+       
+       
+       super.save("customer");
+       
+       
+   }
+ 
     
     // the constructor
-    public Customer(int Id, String name, String address, String contact,String detailing) {
+    public Customer(String Id, String name, String address, String contact,String detailing) {
         super(Id, name, address, contact);
         this.detailing = detailing ;
+        addToHashMap( "Details", this.detailing);
+        
     }
     
-}
+} 

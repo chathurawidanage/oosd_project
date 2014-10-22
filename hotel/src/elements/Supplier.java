@@ -34,13 +34,20 @@ public class Supplier extends Person {
         this.details = details;
     }
     
+    public void save() {
+        
+        save("supplier") ;
+        
+    }
     
     // constrctor
-    public Supplier(int Id, String name, String address, String contact, String Details ) {
+    public Supplier(String Id, String name, String address, String contact, String Details ) {
         
    
         super(Id, name, address, contact);
         this.details = Details ;
+        addToHashMap("Details", details);
+        
     }
     
     

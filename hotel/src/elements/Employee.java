@@ -10,10 +10,10 @@ import java.util.Date;
 public class Employee extends Person {
     
     
-    private Date joinedData =null; 
+    private Date joinedData =null;  
     private Double salary =0.0;
     private boolean isWorking = false ; // working or temp or perm signed out
-     private String post ="" ;    // the post of the employer , eg: manager 
+    private String post ="" ;    // the post of the employer , eg: manager 
      
      
      // state changing methods
@@ -73,16 +73,22 @@ public class Employee extends Person {
     public void setPost(String post) {
         this.post = post;
     }
-     
-     
+    
+    public void save() {
+        
+        save( "Employee") ;  // save in the employee database
+        
+    }
      
      
     //constructors
     
-    public Employee(int Id, String name, String address, String contact , Double salary , String psot ) {
-        super(Id, name, address, contact);
+    public Employee(String Id, String name, String address, String contact , Double salary , String post ) {
+        super(Id, name, address, contact) ;
         this.salary = salary ;
         this.post = post ;
+        addToHashMap("Salary", salary );
+        addToHashMap("post", post );
     }
     
     
