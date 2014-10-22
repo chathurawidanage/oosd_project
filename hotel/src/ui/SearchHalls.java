@@ -224,7 +224,7 @@ public class SearchHalls extends javax.swing.JInternalFrame {
 
         for (int id : availables) {
             reservations.ReceptionHall hall = new ReceptionHall(id);
-            halls.add(hall);    
+            halls.add(hall);
             tModel.addRow(new Object[]{hall.getName()});
         }
 
@@ -244,13 +244,14 @@ public class SearchHalls extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_fromDateMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       int selecetdRow= jTable2.getSelectedRow();
-       if(selecetdRow>=0){
-           
-           
-       }else{
-           MainWindow.showError("Invalid Selection", "Please select a hall to reserve");
-       }
+        int selecetdRow = jTable2.getSelectedRow();
+        if (selecetdRow >= 0) {
+            ReserveHall res = new ReserveHall(halls.get(selecetdRow), fromDate.getDate(), toDate.getDate());
+            MainWindow.getInstance().openWindow(res);
+            this.dispose();
+        } else {
+            MainWindow.showError("Invalid Selection", "Please select a hall to reserve");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

@@ -5,11 +5,13 @@
  */
 package ui;
 
+import elements.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import utilities.DataBase;
 
 /**
@@ -17,14 +19,16 @@ import utilities.DataBase;
  * @author Chathura
  */
 public class SearchCustomers extends javax.swing.JInternalFrame {
-
-    ArrayList<elements.Customer> customers = new ArrayList<>();
+    
+    private ArrayList<elements.Customer> customers = new ArrayList<>();
+    private CustomerSearchable caller;
 
     /**
      * Creates new form SearchCustomers
      */
-    public SearchCustomers() {
+    public SearchCustomers(CustomerSearchable caller) {
         initComponents();
+        this.caller=caller;
     }
 
     /**
@@ -88,11 +92,11 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Name", "Address", "Contact", "NIC"
+                "ID", "Name", "Address", "Contact"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -111,6 +115,11 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Select");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Create New");
@@ -179,14 +188,35 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         try {
             String keywords = keyWordTxt.getText();
             ResultSet results = DataBase.getQuery("SELECT id FROM person RIGHT JOIN customer ON person.Id=customer.Id WHERE person.Name LIKE %" + keywords + "% OR person.NIC LIKE %" + keywords + "%");
+            while (!customers.isEmpty()) {
+                customers.remove(0);
+            }
+            
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            while (jTable1.getRowCount() > 0) {
+                dtm.removeRow(0);
+            }
+            
             while (results.next()) {
-                
-
+                int cusInt = results.getInt("Id");
+                elements.Customer cus = new Customer(cusInt);
+                customers.add(cus);
+                dtm.addRow(new Object[]{cus.getId(), cus.getName(), cus.getAddress(), cus.getContact()});
             }
         } catch (SQLException ex) {
             Logger.getLogger(SearchCustomers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_keyWordTxtKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow>=0){
+            caller.setCustomer(customers.get(selectedRow));
+            this.dispose();
+        }else{
+            MainWindow.showError("Slection error", "Please select a customer from the list.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

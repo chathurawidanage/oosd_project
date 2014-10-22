@@ -163,7 +163,9 @@ public class ReserveHall extends javax.swing.JInternalFrame implements CustomerS
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SearchCustomers srch=new SearchCustomers();
+        SearchCustomers srch=new SearchCustomers(this);
+        MainWindow.getInstance().openWindow(srch);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -183,6 +185,6 @@ public class ReserveHall extends javax.swing.JInternalFrame implements CustomerS
 
     @Override
     public void setCustomer(Customer cus) {
-    
+        this.cus=cus;
     }
 }

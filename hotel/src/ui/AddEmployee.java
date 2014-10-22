@@ -260,7 +260,7 @@ public class AddEmployee extends javax.swing.JInternalFrame {
         Double salary = (Double) salaryTxt.getValue();
 
         Employee emp = new Employee(nic, name, address, contact, salary, post, additionalDetails);
-        emp.Save();
+        emp.save();
 
     }//GEN-LAST:event_saveBtnActionPerformed
 
