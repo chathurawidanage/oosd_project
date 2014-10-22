@@ -9,12 +9,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.text.Format;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -38,8 +40,12 @@ public class MainWindow extends javax.swing.JFrame {
         AddSuplier as = new AddSuplier(false);
         openWindow(as);
         
-        Icon i=new Icon("Title", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
+        Icon i=new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
         iconPanel.add(i);
+        
+        Icon i2=new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
+        iconPanel.add(i2);
+
 
     }
 
@@ -71,7 +77,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         dateTxt.setBounds(0, screen.height - 150, screen.width - 30, 120);
         
-        iconPanel.setBounds(50, 50, screen.width, screen.height);
+        iconPanel.setBounds(50, 100, screen.width, screen.height);
+        iconPanel.setOpaque(false);
 
     }
 
@@ -109,17 +116,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         desktop = new javax.swing.JLayeredPane();
-        iconPanel = new javax.swing.JPanel(){
-
-            @Override
-            public void paintComponent(Graphics g) {
-                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-
-                g.setColor(new Color(0f,0f,0f,0f));
-                g.fillRect(0, 0, screen.width, screen.height);
-            }
-
-        };
+        iconPanel = new javax.swing.JPanel();
         dateTxt = new javax.swing.JLabel();
         backgroundTxt = new javax.swing.JLabel();
 

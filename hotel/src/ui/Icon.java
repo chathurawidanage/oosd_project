@@ -8,6 +8,7 @@ package ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import lk.chathurawidanage.veffects.Bounce;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.swing.ImageIcon;
  */
 public class Icon extends javax.swing.JPanel {
 
-    private boolean mouseOver = false;
+ 
 
     /**
      * Creates new form Icon
@@ -24,15 +25,15 @@ public class Icon extends javax.swing.JPanel {
         initComponents();
         titileLbl.setText(title);
         iconLbl.setIcon(icon);
+        this.setOpaque(false);
+        //this.setBackground(Color.BLACK);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        if (mouseOver) {
-            g.setColor(new Color(0f, 0f, 0f, 0.3f));
-        } else {
-            g.setColor(new Color(0f, 0f, 0f, 0.1f));
-        }
+        
+        g.setColor(new Color(0f, 0f, 0f, 0.1f));
+       
         g.fillRoundRect(0, 0, 180, 180, 20, 20);
     }
 
@@ -48,9 +49,16 @@ public class Icon extends javax.swing.JPanel {
         iconLbl = new javax.swing.JLabel();
         titileLbl = new javax.swing.JLabel();
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
             }
         });
 
@@ -69,7 +77,7 @@ public class Icon extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iconLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(iconLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                     .addComponent(titileLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -77,17 +85,25 @@ public class Icon extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(iconLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(iconLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titileLbl)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        mouseOver = true;
-        this.repaint();
+       
     }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        
+    }//GEN-LAST:event_formMouseExited
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        Bounce b=new Bounce(this, 5);
+        b.play();                
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
