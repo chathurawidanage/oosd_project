@@ -15,14 +15,18 @@ public class Transaction {
     private int id = 0; // unique for each transactions
     
     // constructors
-    public Transaction(Integer id, Date date, double amount, String details){
+    public Transaction(Integer id, Date date, double amount, String details, boolean type){
         this.id = id;
         this.date = date;
         this.amount = amount;
         this.details = details;
-        this.type = amount>0;
+        this.type = type;
     }
     
-    
+    // save in the database
+    public boolean Save(){
+        
+        return true;
+    }
     
 }
