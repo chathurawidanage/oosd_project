@@ -9,7 +9,7 @@ package ui;
  *
  * @author Chathura
  */
-public class AddSuplier extends javax.swing.JInternalFrame {
+public class AddSuplier extends javax.swing.JInternalFrame{
 
     /**
      * Creates new form AddSuplier
@@ -93,6 +93,11 @@ public class AddSuplier extends javax.swing.JInternalFrame {
 
         saveBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         saveBtn.setText("Save");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,6 +180,13 @@ public class AddSuplier extends javax.swing.JInternalFrame {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        String name=nameTxt.getText();
+        String address=addressTxt.getText();
+        String contact=contactTxt.getText();
+        String additionalDetails=addressTxt.getText();
+    }//GEN-LAST:event_saveBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,8 +5,10 @@
  */
 package ui;
 
-import com.alee.laf.WebLookAndFeel;
+
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.SwingUtilities;
 
 /**
@@ -15,21 +17,34 @@ import javax.swing.SwingUtilities;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    public static MainWindow mainWindow;
+
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         initComponents();
+        mainWindow = this;
         //this.setUndecorated(true);
         this.setExtendedState(MAXIMIZED_BOTH);
-        
-        AddSuplier as=new AddSuplier();
-        this.jDesktopPane1.add(as);
-        as.setVisible(true);
-        
-        //settng logo
-        logoLbl.setText("");
-        logoLbl.setIcon(new ImageIcon(getClass().getResource("/ui/images/logo.jpg")));
+
+        AddSuplier as = new AddSuplier();
+        openWindow(as);
+
+    }
+
+    public static MainWindow getInstance() {
+        return mainWindow;
+    }
+
+    public void openWindow(JInternalFrame frame) {
+        JDesktopPane desktop = this.jDesktopPane1;
+
+        desktop.add(frame);
+
+        frame.setLocation((this.jDesktopPane1.getWidth()), WIDTH);
+
+        frame.setVisible(true);
     }
 
     /**
@@ -73,8 +88,8 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(logoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(logoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap(176, Short.MAX_VALUE))
         );
@@ -154,12 +169,12 @@ public class MainWindow extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         /*SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                // Install WebLaF as application L&F
-                WebLookAndFeel.install();
-            }
-        });*/
+         @Override
+         public void run() {
+         // Install WebLaF as application L&F
+         WebLookAndFeel.install();
+         }
+         });*/
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
