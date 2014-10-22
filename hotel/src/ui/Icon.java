@@ -7,6 +7,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import lk.chathurawidanage.veffects.Bounce;
 
@@ -18,6 +19,7 @@ public class Icon extends javax.swing.JPanel {
 
     private boolean mouseOver = false;
     private String title;
+    private ArrayList<SubIcon> subIcons = new ArrayList<>();
 
     /**
      * Creates new form Icon
@@ -30,6 +32,10 @@ public class Icon extends javax.swing.JPanel {
 
         this.title = title;
         //this.setBackground(Color.BLACK);
+    }
+
+    public void addSubIcon(SubIcon subIcon) {
+        this.subIcons.add(subIcon);
     }
 
     @Override
@@ -109,9 +115,15 @@ public class Icon extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseExited
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        
+        MainWindow.getInstance().removeAllInSubIconPanel();
+        MainWindow.getInstance().addToSubIconPanel(subIcons);
+        
         MainWindow.getInstance().swapIconPanels();
-
         MainWindow.getInstance().setSubIconPanelTitle(title);
+        
+        
+        
     }//GEN-LAST:event_formMouseClicked
 
 

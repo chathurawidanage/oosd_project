@@ -9,9 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,6 +48,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         Icon i = new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
         iconPanel.add(i);
+        SubIcon i5 = new SubIcon("Add Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")), UI_ADD_SUPP);
+        i.addSubIcon(i5);
 
         Icon i2 = new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
         iconPanel.add(i2);
@@ -58,9 +59,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         Icon i4 = new Icon("Accounts", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
         iconPanel.add(i4);
-
-        SubIcon i5 = new SubIcon("Add Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")), UI_ADD_SUPP);
-        subIconPanel.add(i5);
 
     }
 
@@ -121,6 +119,16 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public void setSubIconPanelTitle(String title) {
         this.subIconTxt.setText(title);
+    }
+
+    public void removeAllInSubIconPanel() {
+        subIconPanel.removeAll();
+    }
+
+    public void addToSubIconPanel(ArrayList<SubIcon> icons) {
+        for (SubIcon icon : icons) {
+            subIconPanel.add(icon);
+        }
     }
 
     /**
@@ -280,6 +288,7 @@ public class MainWindow extends javax.swing.JFrame {
         iconPanel.setBounds(470, 90, 160, 170);
 
         subIconPanel.setBackground(new java.awt.Color(255, 102, 51));
+        subIconPanel.setLayout(new javax.swing.BoxLayout(subIconPanel, javax.swing.BoxLayout.Y_AXIS));
 
         backLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         backLbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,7 +311,7 @@ public class MainWindow extends javax.swing.JFrame {
         subIconPanel.add(subIconTxt);
 
         getContentPane().add(subIconPanel);
-        subIconPanel.setBounds(110, 180, 100, 100);
+        subIconPanel.setBounds(10, 180, 310, 110);
 
         dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 130)); // NOI18N
         dateTxt.setForeground(new java.awt.Color(255, 255, 255));

@@ -141,11 +141,13 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="110" y="180" width="-1" height="-1"/>
+          <AbsoluteConstraints x="10" y="180" width="310" height="110"/>
         </Constraint>
       </Constraints>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+        <Property name="axis" type="int" value="1"/>
+      </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="backLbl">
           <Properties>
