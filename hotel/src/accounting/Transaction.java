@@ -18,11 +18,13 @@ public class Transaction {
     private String details = "";    // ex: "Bill Payment" , "Cash Recieved"
     private int type = 0;   // type>0 for credit and type<0 for debit transactions
     private int id = 0; // unique for each transactions
+    private int user = 0;
 
     // constructors
-    public Transaction(Date date, double amount, String details, int type) {
+    public Transaction(Date date, double amount, int user, String details, int type) {
         this.date = date;
         this.amount = amount;
+        this.user = user;
         this.details = details;
         this.type = type;
     }
@@ -31,6 +33,7 @@ public class Transaction {
         ArrayList<String> col = new ArrayList<>();
         col.add("date");
         col.add("amount");
+        col.add("user");
         col.add("details");
         col.add("type");
 
@@ -39,6 +42,7 @@ public class Transaction {
         if (results.next()) {
             this.date = results.getDate("date");
             this.amount = results.getDouble("amount");
+            this.user = results.getInt("user");
             this.details = results.getString("details");
             this.type = results.getInt("type");
         }
