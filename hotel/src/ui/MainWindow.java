@@ -35,6 +35,8 @@ public class MainWindow extends javax.swing.JFrame {
     public final static int UI_ADD_SUPP = 1;
     public final static int UI_ADD_CUS = 2;
 
+    public final static int UI_SEARCH_HALL = 3;
+
     /**
      * Creates new form MainWindow
      */
@@ -53,9 +55,16 @@ public class MainWindow extends javax.swing.JFrame {
 
         Icon i2 = new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
         iconPanel.add(i2);
+        SubIcon i6 = new SubIcon("Add Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")), UI_ADD_CUS);
+        i2.addSubIcon(i6);
 
         Icon i3 = new Icon("Halls", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")));
         iconPanel.add(i3);
+        SubIcon newHall = new SubIcon("Add New Hall", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")), UI_ADD_HALL);
+        i3.addSubIcon(newHall);
+
+        SubIcon seacrhHall = new SubIcon("Search Hall", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")), UI_SEARCH_HALL);
+        i3.addSubIcon(seacrhHall);
 
         Icon i4 = new Icon("Accounts", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
         iconPanel.add(i4);
@@ -69,7 +78,11 @@ public class MainWindow extends javax.swing.JFrame {
      * @param error the content of the error message
      */
     public static void showError(String title, String error) {
-        JOptionPane.showMessageDialog(MainWindow.getInstance(), title, error, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(MainWindow.getInstance(), error, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void showInformation(String title, String info) {
+        JOptionPane.showMessageDialog(MainWindow.getInstance(), info, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void generateSubWindow(int ui) {
@@ -83,6 +96,10 @@ public class MainWindow extends javax.swing.JFrame {
 
             case UI_ADD_CUS:
                 openWindow(new AddSupCus(false));
+                break;
+
+            case UI_SEARCH_HALL:
+                openWindow(new SearchHalls());
                 break;
         }
     }
@@ -122,7 +139,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void removeAllInSubIconPanel() {
-        //subIconPanel.removeAll();
+        subIconContainer.removeAll();
     }
 
     public void addToSubIconPanel(ArrayList<SubIcon> icons) {

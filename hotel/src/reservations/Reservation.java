@@ -21,7 +21,7 @@ import utilities.DataBase;
  */
 public class Reservation {
     private int NoOfHalls;
-    private ArrayList<String> dbCols;
+    private ArrayList<String> dbCols=new ArrayList<>();
     private final String dbTable;
     public Reservation(){
         dbCols.add("Date");

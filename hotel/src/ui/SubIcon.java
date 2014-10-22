@@ -107,6 +107,9 @@ public class SubIcon extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         MainWindow.getInstance().generateSubWindow(ui);
+        Bounce b=new Bounce(this, 10);
+        b.play();
+        
     }//GEN-LAST:event_formMouseClicked
 
 

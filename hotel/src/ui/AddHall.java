@@ -113,7 +113,13 @@ public class AddHall extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String name = nameTxt.getText();
         ReceptionHall hall = new ReceptionHall(name);
-        hall.save();
+        int id = hall.save();
+        if (id > 0) {
+            MainWindow.showInformation("Operation succeeded", "New Hall saved successfully with following details<br><br>" + name);
+        } else {
+            MainWindow.showError("Error", "Error occured in adding the hall. Please retry or contact system support.");
+        }
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

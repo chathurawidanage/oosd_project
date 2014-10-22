@@ -5,6 +5,7 @@
  */
 package ui;
 
+import elements.Customer;
 import elements.Supplier;
 
 /**
@@ -220,6 +221,9 @@ public class AddSupCus extends javax.swing.JInternalFrame {
         if (isSupplier) {
             elements.Supplier sup = new Supplier(nic, name, address, contact, additionalDetails);
             sup.Save();
+        }else{
+            elements.Customer cus=new Customer(nic, name, address, contact, additionalDetails);
+            cus.Save();
         }
 
     }//GEN-LAST:event_saveBtnActionPerformed
