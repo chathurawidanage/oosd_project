@@ -8,6 +8,7 @@ package accounting;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.MainWindow;
@@ -19,8 +20,8 @@ import utilities.DataBase;
  */
 public class Ledger {
 
-    private Transaction transaction;
 
+    //return the current balance
     public double getCurrentBalance() {
 
         double balance = 0.0;
@@ -32,17 +33,57 @@ public class Ledger {
         try {
             if (results.next()) {
                 do {
-                    balance+=((results.getDouble("amount")) * ((results.getInt("type"))>0 ? 1 : -1));
+                    balance += ((results.getDouble("amount")) * ((results.getInt("type")) > 0 ? 1 : -1));
                     System.out.println(results.getDouble("amount"));
                     System.out.println(results.getInt("type"));
-                    
+
                 } while (results.next());
             }
         } catch (SQLException ex) {
-            //error message
+            MainWindow.showError("Error", "Database connection failed!");
         }
         return balance;
 
     }
 
+    /**
+     *
+     * @param complete Full payment = true. Advance = false
+     * @param amount Payment amount
+     * @param userId id of the client
+     * @param userName name of the client
+     * @param hallName the name of the hall that is reserved
+     * @return true if success. otherwise false
+     */
+    
+    public static boolean addReservation(boolean complete, double amount, int userId, String userName, String hallName){
+        int finished = 0;
+        int type = 2;
+        String details = hallName+" reservation by "+userName;
+        if(complete){
+            finished = 1;
+            type = 1;
+        }
+        
+        Transaction transaction = new Transaction(new Date(), amount, userId, details, type, finished);
+        
+        return (transaction.Save())>0;
+        
+    }
+    
+    /**
+     *
+     * @param amount Payment amount
+     * @param userId id of the supplier
+     * @param details  details about the bill
+     * @return true if success. otherwise false
+     */
+    
+    public static boolean addBill( double amount, int userId, String details){
+ 
+        Transaction transaction = new Transaction(new Date(), amount, userId, details, -1, 1);
+        
+        return (transaction.Save())>0;
+        
+    }
 }

@@ -22,14 +22,16 @@ public class Transaction {
     private int type = 0;   // type>0 for credit and type<0 for debit transactions
     private int id = 0; // unique for each transactions
     private int user = 0;
+    private int completed = 0;  // indicate the transaction has completed or not
 
     // constructors
-    public Transaction(Date date, double amount, int user, String details, int type) {
+    public Transaction(Date date, double amount, int user, String details, int type, int completed) {
         this.date = date;
         this.amount = amount;
         this.user = user;
         this.details = details;
         this.type = type;
+        this.completed = completed;
     }
     
     // Create transaction from the db using id
@@ -40,6 +42,7 @@ public class Transaction {
         col.add("user");
         col.add("details");
         col.add("type");
+        col.add("completed");
 
         ResultSet results = DataBase.select("transactions", col, "id = " + id);
         try {
@@ -49,9 +52,10 @@ public class Transaction {
                 this.user = results.getInt("user");
                 this.details = results.getString("details");
                 this.type = results.getInt("type");
+                this.completed = results.getInt("completed");
             }
         } catch (SQLException ex) {
-            //
+            MainWindow.showError("Error", "Database connection failed!");
         }
 
     }
@@ -70,6 +74,7 @@ public class Transaction {
         data.put("details", this.details);
         data.put("type", this.type);
         data.put("user", this.user);
+        data.put("completed", this.completed);
 
         if (this.id == 0) {
             this.id = DataBase.insert("transactions", "id", data);
@@ -101,11 +106,17 @@ public class Transaction {
         return this.type;
     }
     
+    public int getStatus(){
+        return completed;
+    }
+    
     // to be modifiied with new transaction types
     public String getTypeString(){
         switch(this.type){
             case 1:
-                return "Cash Receiving";
+                return "Reservation Payment - Complete";
+            case 2:
+                return "Reservation Payment - Advance";
             case -1:
                 return "Bill Payment";
             default:

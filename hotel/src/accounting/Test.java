@@ -7,6 +7,7 @@ package accounting;
 
 import java.sql.SQLException;
 import java.util.Date;
+import ui.MainWindow;
 
 /**
  *
@@ -20,11 +21,11 @@ public class Test {
         Transaction test;
         Ledger ledger = new Ledger();
         System.out.println(ledger.getCurrentBalance());
-        test = new Transaction(new Date(2014, 10, 22), 2785.45,1, "Test Transaction", 10);
-        
+        test = new Transaction(new Date(2014, 10, 22), 10775.45,1, "Test Transaction", -1,0);
+       // MainWindow.showError("Error", "Database connection failed!");
         //test = new Transaction(2);
         
-        System.out.println(test.Save());
+        //System.out.println(test.Save());
         //System.out.println(test.deleteTransaction(2));
     }
 }
