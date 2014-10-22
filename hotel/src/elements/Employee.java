@@ -1,8 +1,12 @@
 
 package elements;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import ui.MainWindow;
 
 /**
  * Derived class from the Person class 
@@ -76,21 +80,22 @@ public class Employee extends Person {
         this.post = post;
     }
     
-    public void Save() {
+    public int save() {
         
           int id = super.save() ;
           if( id >=0) {
               
               hMap.put("employeeId", id) ;
               utilities.DataBase.insert("employee", "Id", hMap) ;
-              
+              return SUCCESS_SAVE ;  // return 0 as the success save
               
               
           }else {
               
-              // return error message
+              return id ; // return the error code
           }
         
+          
     }
      
      
@@ -105,7 +110,24 @@ public class Employee extends Person {
     }
     
     
-    
+    public Employee(int id) {
+        
+        super(id);
+          try {
+            ArrayList getCol = new ArrayList();
+            getCol.add("Salary") ;
+            getCol.add("post");
+            ResultSet set = utilities.DataBase.select("employee", getCol, "Id = "+id) ;
+            set.next();
+            this.post = set.getString("post");
+            this.salary = set.getDouble("Salary") ;
+        } catch (SQLException ex) {
+            MainWindow.showError("Error", "Cannot access the database");
+            
+        }
+          
+        
+    }
     
     
     
