@@ -2,14 +2,16 @@
 
 package elements;
 
+import java.util.HashMap;
+
 /**
  * Supplier class 
  * @author Theekshana
  */
 public class Supplier extends Person {
     
-    
-    private String details="" ;
+  
+    HashMap hMap = new HashMap() ;
     private int noOfTransactions = 0 ;
     
     
@@ -26,17 +28,16 @@ public class Supplier extends Person {
     }
 
     // get ans set methods
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
     
-    public void save() {
+    public void Save() {
         
-        save("supplier") ;
+          int id = super.save() ;
+          if( id >= 0 ) {
+              
+              hMap.put("supplierId", id);
+              utilities.DataBase.insert("supplier", "Id", hMap) ;
+              
+          }
         
     }
     
@@ -44,9 +45,9 @@ public class Supplier extends Person {
     public Supplier(String Id, String name, String address, String contact, String Details ) {
         
    
-        super(Id, name, address, contact);
-        this.details = Details ;
-        addToHashMap("Details", details);
+        super(Id, name, address, contact , Details);
+        
+ 
         
     }
     
