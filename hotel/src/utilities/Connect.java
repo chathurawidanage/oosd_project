@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Connect {
+class Connect {
 
     private Connect() {
         a = Conn();
@@ -28,15 +28,14 @@ public class Connect {
         driver = "com.mysql.jdbc.Driver";
         uname = "root";
         pword = "";
-        dbname = "hotel";
+        dbname = "oosd_hotel";
         try {
             Class.forName(driver).newInstance();
             a = DriverManager.getConnection(url + dbname, uname, pword);
             System.out.println("Connected");
 
-
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-          //  JOptionPane.showMessageDialog(null, ex);
+            //  JOptionPane.showMessageDialog(null, ex);
         }
         return a;
     }
@@ -90,11 +89,8 @@ public class Connect {
 
             return i;
 
-
-
         } catch (SQLException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
-
 
             return i;
         }
