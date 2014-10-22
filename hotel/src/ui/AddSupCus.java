@@ -11,14 +11,14 @@ import elements.Supplier;
  *
  * @author Chathura
  */
-public class AddSuplier extends javax.swing.JInternalFrame {
+public class AddSupCus extends javax.swing.JInternalFrame {
 
     private boolean isSupplier;
 
     /**
      * Creates new form AddSuplier
      */
-    public AddSuplier(boolean supplier) {
+    public AddSupCus(boolean supplier) {
         initComponents();
         this.isSupplier = supplier;
         if (supplier) {
