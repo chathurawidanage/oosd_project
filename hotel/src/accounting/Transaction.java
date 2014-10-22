@@ -2,6 +2,8 @@ package accounting;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import utilities.DataBase;
 
 /**
  *
@@ -15,8 +17,7 @@ public class Transaction {
     private int id = 0; // unique for each transactions
     
     // constructors
-    public Transaction(Integer id, Date date, double amount, String details, boolean type){
-        this.id = id;
+    public Transaction(Date date, double amount, String details, boolean type){
         this.date = date;
         this.amount = amount;
         this.details = details;
@@ -24,9 +25,17 @@ public class Transaction {
     }
     
     // save in the database
-    public boolean Save(){
+    public int Save(){
+        HashMap<String,Object> data = new HashMap<>();
         
-        return true;
+        data.put("date", this.date);
+        data.put("amount", this.amount);
+        data.put("details", this.details);
+        data.put("type", this.type);
+        
+        this.id = DataBase.insert("transactions", "id", data);
+        
+        return this.id;
     }
     
 }
