@@ -133,7 +133,7 @@ public class DataBase {
      * @param where conditions for the deleting record
      * @return 
      */
-    public boolean delete(String table, String where) {
+    public static boolean delete(String table, String where) {
         String sql = "DELETE FROM " + table + " WHERE " + where;
         return con.setQuery(sql);
     }

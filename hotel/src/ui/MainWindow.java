@@ -43,7 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         createUI();
         
-        AddSuplier as = new AddSuplier(false);
+        AddSupCus as = new AddSupCus(false);
         openWindow(as);
         
         Icon i = new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
@@ -194,7 +194,7 @@ public class MainWindow extends javax.swing.JFrame {
         desktop = new javax.swing.JLayeredPane();
         iconPanel = new javax.swing.JPanel();
         subIconPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        backLbl = new javax.swing.JLabel();
         subIconTxt = new javax.swing.JLabel();
         dateTxt = new javax.swing.JLabel();
         backgroundTxt = new javax.swing.JLabel();
@@ -261,22 +261,21 @@ public class MainWindow extends javax.swing.JFrame {
         iconPanel.setBounds(470, 90, 160, 170);
 
         subIconPanel.setBackground(new java.awt.Color(255, 102, 51));
-        subIconPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons/up.png"))); // NOI18N
-        jLabel2.setText("Back to main");
-        jLabel2.setToolTipText("");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        backLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        backLbl.setForeground(new java.awt.Color(255, 255, 255));
+        backLbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        backLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons/up.png"))); // NOI18N
+        backLbl.setText("Back to main");
+        backLbl.setToolTipText("");
+        backLbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                backLblMouseClicked(evt);
             }
         });
-        subIconPanel.add(jLabel2);
+        subIconPanel.add(backLbl);
 
-        subIconTxt.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        subIconTxt.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         subIconTxt.setForeground(new java.awt.Color(255, 255, 255));
         subIconTxt.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         subIconTxt.setText("Title");
@@ -305,9 +304,9 @@ public class MainWindow extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void backLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLblMouseClicked
         swapIconPanels();
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_backLblMouseClicked
 
     /**
      * @param args the command line arguments
@@ -352,13 +351,13 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel backLbl;
     private javax.swing.JLabel backgroundTxt;
     private javax.swing.JLabel dateTxt;
     private javax.swing.JLayeredPane desktop;
     private javax.swing.JPanel iconPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel subIconPanel;
     private javax.swing.JLabel subIconTxt;
     private javax.swing.JPanel topBar;
