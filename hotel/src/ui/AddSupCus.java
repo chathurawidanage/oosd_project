@@ -219,7 +219,7 @@ public class AddSupCus extends javax.swing.JInternalFrame {
         String nic = nicTxt.getText();
         if (isSupplier) {
             elements.Supplier sup = new Supplier(nic, name, address, contact, additionalDetails);
-            
+
             sup.save();
         }
 
@@ -249,3 +249,4 @@ public class AddSupCus extends javax.swing.JInternalFrame {
     private javax.swing.JLabel titleTxt;
     // End of variables declaration//GEN-END:variables
 }
+   
