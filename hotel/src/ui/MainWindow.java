@@ -34,8 +34,9 @@ public class MainWindow extends javax.swing.JFrame {
     public final static int UI_ADD_HALL = 0;
     public final static int UI_ADD_SUPP = 1;
     public final static int UI_ADD_CUS = 2;
+    public final static int UI_ADD_EMP = 3;
 
-    public final static int UI_SEARCH_HALL = 3;
+    public final static int UI_SEARCH_HALL = 4;
 
     /**
      * Creates new form MainWindow
@@ -47,28 +48,54 @@ public class MainWindow extends javax.swing.JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
         createUI();
+        createIcons();
+    }
 
-        Icon i = new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
-        iconPanel.add(i);
-        SubIcon i5 = new SubIcon("Add Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")), UI_ADD_SUPP);
-        i.addSubIcon(i5);
+    private void createIcons() {
+        /**
+         * Suppliers
+         */
+        Icon supllierIcon = new Icon("Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
+        iconPanel.add(supllierIcon);
+        //
+        SubIcon addSupllierIcon = new SubIcon("Add Supplier", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")), UI_ADD_SUPP);
+        supllierIcon.addSubIcon(addSupllierIcon);
 
-        Icon i2 = new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
-        iconPanel.add(i2);
-        SubIcon i6 = new SubIcon("Add Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")), UI_ADD_CUS);
-        i2.addSubIcon(i6);
+        /**
+         * Customers
+         */
+        Icon customerIcon = new Icon("Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")));
+        iconPanel.add(customerIcon);
+        //
+        SubIcon addCustomerIcon = new SubIcon("Add Customer", new ImageIcon(getClass().getResource("/ui/images/icons/customer.png")), UI_ADD_CUS);
+        customerIcon.addSubIcon(addCustomerIcon);
 
-        Icon i3 = new Icon("Halls", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")));
-        iconPanel.add(i3);
-        SubIcon newHall = new SubIcon("Add New Hall", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")), UI_ADD_HALL);
-        i3.addSubIcon(newHall);
-
+        /**
+         * Halls
+         */
+        Icon hallsIcon = new Icon("Halls", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")));
+        iconPanel.add(hallsIcon);
+        //
+        SubIcon addHallIcon = new SubIcon("Add New Hall", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")), UI_ADD_HALL);
+        hallsIcon.addSubIcon(addHallIcon);
+        //
         SubIcon seacrhHall = new SubIcon("Search Hall", new ImageIcon(getClass().getResource("/ui/images/icons/hall.png")), UI_SEARCH_HALL);
-        i3.addSubIcon(seacrhHall);
+        hallsIcon.addSubIcon(seacrhHall);
 
-        Icon i4 = new Icon("Accounts", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
-        iconPanel.add(i4);
+        /**
+         * Accounts
+         */
+        Icon accountsIcon = new Icon("Accounts", new ImageIcon(getClass().getResource("/ui/images/icons/accounts.png")));
+        iconPanel.add(accountsIcon);
 
+        /**
+         * Employees
+         */
+        Icon employeesIco = new Icon("Employees", new ImageIcon(getClass().getResource("/ui/images/icons/employee.png")));
+        iconPanel.add(employeesIco);
+        //
+        SubIcon addEmployeeIcon = new SubIcon("Add Employee", new ImageIcon(getClass().getResource("/ui/images/icons/employee.png")), UI_ADD_EMP);
+        employeesIco.addSubIcon(addEmployeeIcon);
     }
 
     /**
@@ -96,6 +123,10 @@ public class MainWindow extends javax.swing.JFrame {
 
             case UI_ADD_CUS:
                 openWindow(new AddSupCus(false));
+                break;
+
+            case UI_ADD_EMP:
+                openWindow(new AddEmployee());
                 break;
 
             case UI_SEARCH_HALL:

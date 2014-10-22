@@ -5,17 +5,30 @@
  */
 package ui;
 
+import elements.Customer;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import utilities.DataBase;
+
 /**
  *
  * @author Chathura
  */
 public class SearchCustomers extends javax.swing.JInternalFrame {
 
+    private ArrayList<elements.Customer> customers = new ArrayList<>();
+    private CustomerSearchable caller;
+
     /**
      * Creates new form SearchCustomers
      */
-    public SearchCustomers() {
+    public SearchCustomers(CustomerSearchable caller) {
         initComponents();
+        this.caller = caller;
     }
 
     /**
@@ -30,7 +43,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        keyWordTxt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -46,7 +59,12 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Name or NIC");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        keyWordTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        keyWordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                keyWordTxtKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -56,7 +74,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1)
+                .addComponent(keyWordTxt)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -65,7 +83,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(keyWordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -74,11 +92,11 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Name", "Address", "Contact", "NIC"
+                "ID", "Name", "Address", "Contact"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -97,6 +115,11 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Select");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Create New");
@@ -161,6 +184,42 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
         MainWindow.getInstance().openWindow(addCus);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void keyWordTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyWordTxtKeyReleased
+        try {
+            String keywords = keyWordTxt.getText();
+            String qry = "SELECT customer.Id FROM customer JOIN person ON person.Id=customer.Id WHERE person.Name LIKE '%" + keywords + "%' OR person.NIC LIKE '%" + keywords + "%'";
+            System.out.println(qry);
+            ResultSet results = DataBase.getQuery(qry);
+            while (!customers.isEmpty()) {
+                customers.remove(0);
+            }
+
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            while (jTable1.getRowCount() > 0) {
+                dtm.removeRow(0);
+            }
+
+            while (results.next()) {
+                int cusInt = results.getInt("Id");
+                elements.Customer cus = new Customer(cusInt);
+                customers.add(cus);
+                dtm.addRow(new Object[]{cus.getId(), cus.getName(), cus.getAddress(), cus.getContact()});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchCustomers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_keyWordTxtKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow >= 0) {
+            caller.setCustomer(customers.get(selectedRow));
+            this.dispose();
+        } else {
+            MainWindow.showError("Slection error", "Please select a customer from the list.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -172,8 +231,7 @@ public class SearchCustomers extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField keyWordTxt;
     // End of variables declaration//GEN-END:variables
 
-  
 }

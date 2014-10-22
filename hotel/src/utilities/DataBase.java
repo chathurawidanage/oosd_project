@@ -153,6 +153,6 @@ public class DataBase {
     }
 
     public static ResultSet like(String table, String like) {
-        return con.getQuery("SELECT * FROM " + table + " LIKE " + like);
+        return con.getQuery("SELECT * FROM " + table + " " + like);
     }
 }

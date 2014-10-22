@@ -6,27 +6,21 @@
 package ui;
 
 import elements.Customer;
+import elements.Employee;
 import elements.Supplier;
 
 /**
  *
  * @author Chathura
  */
-public class AddSupCus extends javax.swing.JInternalFrame {
-
-    private boolean isSupplier;
+public class AddEmployee extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form AddSuplier
      */
-    public AddSupCus(boolean supplier) {
+    public AddEmployee() {
         initComponents();
-        this.isSupplier = supplier;
-        if (supplier) {
-            titleTxt.setText("New Supplier");
-        } else {
-            titleTxt.setText("New Customer");
-        }
+
     }
 
     /**
@@ -54,11 +48,16 @@ public class AddSupCus extends javax.swing.JInternalFrame {
         saveBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         nicTxt = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        postTxt = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        salaryTxt = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
         titleTxt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        titleTxt.setText("New Supplier");
+        titleTxt.setText("New Employee");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Name");
@@ -122,6 +121,25 @@ public class AddSupCus extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Post");
+
+        postTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        postTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postTxtActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Salary");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("LKR");
+
+        salaryTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        salaryTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,9 +152,6 @@ public class AddSupCus extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(nameTxt))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(titleTxt)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -157,7 +172,21 @@ public class AddSupCus extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(nicTxt)))
+                        .addComponent(nicTxt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(postTxt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(titleTxt)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(salaryTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -185,16 +214,25 @@ public class AddSupCus extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(nicTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(postTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(salaryTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtn)
                     .addComponent(saveBtn))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -218,19 +256,21 @@ public class AddSupCus extends javax.swing.JInternalFrame {
         String contact = contactTxt.getText();
         String additionalDetails = detailsTxt.getText();
         String nic = nicTxt.getText();
-        if (isSupplier) {
-            elements.Supplier sup = new Supplier(nic, name, address, contact, additionalDetails);
-            sup.save();
-        }else{
-            elements.Customer cus=new Customer(nic, name, address, contact, additionalDetails);
-            cus.save();
-        }
+        String post = postTxt.getText();
+        Double salary = (Double) salaryTxt.getValue();
+
+        Employee emp = new Employee(nic, name, address, contact, salary, post, additionalDetails);
+        emp.save();
 
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void nicTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nicTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nicTxtActionPerformed
+
+    private void postTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_postTxtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,11 +283,16 @@ public class AddSupCus extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JTextField nicTxt;
+    private javax.swing.JTextField postTxt;
+    private javax.swing.JFormattedTextField salaryTxt;
     private javax.swing.JButton saveBtn;
     private javax.swing.JLabel titleTxt;
     // End of variables declaration//GEN-END:variables
