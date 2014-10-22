@@ -6,7 +6,13 @@
 
 package elements;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ui.MainWindow;
 
 /**
  * Customer class 
@@ -18,20 +24,20 @@ public class Customer extends Person {
     HashMap hMap = new HashMap() ;
 
 
-   public void Save(){
+   public int save(){
        
        
        int id = super.save() ; // save at the person class
-       if( id >= 0 ) {
+       if( id > 0 ) {
            
            hMap.put("personId", id) ;
            //now save in the customer method
            utilities.DataBase.insert("customer", "Id", hMap) ;
-           
+           return SUCCESS_SAVE ; 
                   
        }else {
            
-           // show a error message
+           return id ; // return the error code for erro
            
        }
        
@@ -46,6 +52,12 @@ public class Customer extends Person {
     public Customer(String Id, String name, String address, String contact,String detailing) {
         super(Id, name, address, contact , detailing);
         
+        
+    }
+    
+    public Customer(int id ){
+        
+        super(id) ;
         
     }
     

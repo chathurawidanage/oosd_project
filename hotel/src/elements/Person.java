@@ -5,7 +5,13 @@
  */
 package elements;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ui.MainWindow;
 
 public class Person {
 
@@ -15,10 +21,24 @@ public class Person {
     private String contact = "";
     private String Details = "" ;
     private HashMap hash = new HashMap();
+    protected static final int SUCCESS_SAVE = 0 ; 
+    protected static final int ERROR_ID = -1 ;
+    protected static final int ERROR_NAME = -2 ;
+    protected static final int ERROR_CONTACT = -3 ;
 
     // get set methods for the private variables
-    public String getId() {
-        return Id;
+    public int getId() {  // return the id of in the table person
+        try {
+            ArrayList getCol = new ArrayList();
+            getCol.add("Id") ;
+            ResultSet set = utilities.DataBase.select("person", getCol, "NIC = "+Id) ;
+            set.next();
+            return  set.getInt("Id") ;
+             
+        } catch (SQLException ex) {
+            MainWindow.showError("Error", "Cannot access the database");
+            return -1 ;
+        }
     }
 
     public void setId(String Id) {
@@ -71,15 +91,15 @@ public class Person {
          
 
                 } else {
-                    return -1;
+                    return ERROR_CONTACT;
                 }
 
             } else {
-                return -1;
+                return ERROR_NAME;
             }
 
         } else {
-            return -1; // inu
+            return ERROR_ID; // invalid NIC
         }
     }
 
@@ -171,6 +191,35 @@ public class Person {
         addToHashMap("Details", Details);
        
 
+    }
+    
+    // constructor returning the object for the id given
+    public Person( int id) {
+        
+        
+        try {
+            ArrayList getCol = new ArrayList();
+            getCol.add("Id") ;
+            getCol.add("NIC") ;
+            getCol.add("Name") ;
+            getCol.add("Address") ;
+            getCol.add("details") ;
+            ResultSet set = utilities.DataBase.select("person", getCol, "Id = "+id) ;
+            set.next();
+            this.Id = set.getString("NIC") ;
+            this.name = set.getString("Name") ;
+            this.address = set.getString("Address") ;
+            this.contact = set.getString("Contact") ;
+            this.Details = set.getString("details") ;
+        } catch (SQLException ex) {
+            MainWindow.showError("Error", "Cannot access the database");
+            
+        }
+          
+        
+        
+        
+        
     }
 
 }

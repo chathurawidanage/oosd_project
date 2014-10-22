@@ -29,15 +29,17 @@ public class Supplier extends Person {
 
     // get ans set methods
     
-    public void Save() {
+    public int save() {
         
           int id = super.save() ;
           if( id >= 0 ) {
               
               hMap.put("supplierId", id);
               utilities.DataBase.insert("supplier", "Id", hMap) ;
+              return SUCCESS_SAVE ; // return 0 as the success code
               
-          }
+          }else
+               return id ; // return the error code
         
     }
     
@@ -51,6 +53,9 @@ public class Supplier extends Person {
         
     }
     
-    
+    public Supplier(int id) {
+        
+        super(id) ;
+    }
     
 }
