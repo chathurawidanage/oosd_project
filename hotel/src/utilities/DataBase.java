@@ -98,4 +98,32 @@ public class DataBase {
         return con.getQuery(sql);
     }
 
+    /**
+     *
+     * @param qry query to perform
+     * @return success status
+     */
+    public static boolean setQuery(String qry) {
+        return con.setQuery(qry);
+    }
+
+    /**
+     * 
+     * @param qry query to perform
+     * @param colName column name to return the auto generated index
+     * @return  auto generated index
+     */
+    public static int setQuery(String qry, String colName) {
+        return con.setQuery(qry, colName);
+    }
+
+    /**
+     * 
+     * @param qry query to perform
+     * @return ResultSet 
+     */
+    public static ResultSet getQuery(String qry) {
+        return con.getQuery(qry);
+    }
+
 }

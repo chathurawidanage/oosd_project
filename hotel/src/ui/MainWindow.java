@@ -37,6 +37,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         AddSuplier as = new AddSuplier(false);
         openWindow(as);
+        
+        Icon i=new Icon("Title", new ImageIcon(getClass().getResource("/ui/images/icons/supplier.png")));
+        iconPanel.add(i);
 
     }
 
@@ -67,6 +70,8 @@ public class MainWindow extends javax.swing.JFrame {
         t.scheduleAtFixedRate(timeUpdate, 0, 1000);
 
         dateTxt.setBounds(0, screen.height - 150, screen.width - 30, 120);
+        
+        iconPanel.setBounds(50, 50, screen.width, screen.height);
 
     }
 
@@ -104,6 +109,17 @@ public class MainWindow extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         desktop = new javax.swing.JLayeredPane();
+        iconPanel = new javax.swing.JPanel(){
+
+            @Override
+            public void paintComponent(Graphics g) {
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+                g.setColor(new Color(0f,0f,0f,0f));
+                g.fillRect(0, 0, screen.width, screen.height);
+            }
+
+        };
         dateTxt = new javax.swing.JLabel();
         backgroundTxt = new javax.swing.JLabel();
 
@@ -162,6 +178,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         getContentPane().add(desktop);
         desktop.setBounds(397, 184, 242, 116);
+
+        iconPanel.setBackground(new java.awt.Color(0, 255, 153));
+        iconPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 15));
+        getContentPane().add(iconPanel);
+        iconPanel.setBounds(470, 90, 160, 170);
 
         dateTxt.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
         dateTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -228,6 +249,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel backgroundTxt;
     private javax.swing.JLabel dateTxt;
     private javax.swing.JLayeredPane desktop;
+    private javax.swing.JPanel iconPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel topBar;
