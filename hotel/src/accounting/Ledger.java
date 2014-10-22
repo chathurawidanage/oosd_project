@@ -45,6 +45,36 @@ public class Ledger {
         return balance;
 
     }
+    
+    /**
+     * 
+     * @param from Date when to search from<to
+     * @param to Date when to search to
+     * @return ArrayList of Transactions
+     */
+    public ArrayList<Transaction> getTransactions(Date from, Date to){
+        ArrayList<Transaction> list = new ArrayList<>();
+        
+        long f = from.getTime();
+        long t = from.getTime();
+        java.sql.Timestamp sqlFrom = new java.sql.Timestamp(f);
+        java.sql.Timestamp sqlTo = new java.sql.Timestamp(t);
+        
+        String query = "SELECT * FROM transactions WHERE date>'"+sqlFrom+"' AND date<'"+sqlTo+"';";
+        
+        
+        ResultSet results = DataBase.getQuery(query);
+        try {
+            while(results.next()){
+                list.add(new Transaction(results.getInt("id")));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Ledger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
 
     /**
      *
