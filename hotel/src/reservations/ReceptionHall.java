@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ui.MainWindow;
 import utilities.DataBase;
 
 /**
@@ -28,11 +29,13 @@ public class ReceptionHall {
     public ReceptionHall(int id) {
         this.id = id;
         //call db and
+        System.out.println("recHCon: "+id);
         ResultSet rs = DataBase.selectAll("halls","id='" + id + "'");
         try {
-            name=rs.getArray("name").toString();
+            rs.next();
+            name=rs.getString("name");
         } catch (SQLException ex) {
-            Logger.getLogger(ReceptionHall.class.getName()).log(Level.SEVERE, null, ex);
+            MainWindow.showError("DataBase Error!",ex.toString());
         }
     }
 
