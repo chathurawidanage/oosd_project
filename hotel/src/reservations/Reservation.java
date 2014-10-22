@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilities.DataBase;
+import ui.MainWindow;
 //import sun.util.calendar.LocalGregorianCalendar.Date;
 /**
  *
@@ -24,6 +25,7 @@ public class Reservation {
     private ArrayList<String> dbCols;
     private final String dbTable;
     public Reservation(){
+        dbCols=new ArrayList<>();
         dbCols.add("Date");
         dbCols.add("hall");
         dbTable="reservations";
@@ -34,6 +36,9 @@ public class Reservation {
             arr = (int[]) DataBase.select("halls",list,"1=1").getArray("id").getArray();
             NoOfHalls=arr.length;
         } catch (SQLException ex) {
+        }
+        catch(NullPointerException ex){
+           // MainWindow.s
         }
                 
     }
