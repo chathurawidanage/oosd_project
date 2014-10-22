@@ -106,6 +106,9 @@ public class MainWindow extends javax.swing.JFrame {
         this.subIconTxt.setText(title);
     }
     
+    /**
+     * Creates all the UI components
+     */
     private void createUI() {
         
         JLayeredPane desktop = this.desktop;
@@ -141,10 +144,18 @@ public class MainWindow extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Return the current instance of the MainWindow
+     * @return 
+     */
     public static MainWindow getInstance() {
         return mainWindow;
     }
     
+    /**
+     * Opens a sub window inside the main window
+     * @param frame 
+     */
     public void openWindow(JInternalFrame frame) {
         JLayeredPane desktop = this.desktop;
         
