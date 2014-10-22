@@ -6,6 +6,9 @@
 
 package reservations;
 
+import java.util.HashMap;
+import utilities.DataBase;
+
 /**
  *
  * @author aseladarshan
@@ -13,9 +16,8 @@ package reservations;
 public class ReceptionHall {
     private String name;
     private int id;
-    public ReceptionHall(String name,int id){
-        this.name=name;
-        this.id=id;
+    public ReceptionHall(String name){
+        this.addHall(name);
     }
     /**
      * @return the name
@@ -43,5 +45,13 @@ public class ReceptionHall {
      */
     public void setId(int id) {
         this.id = id;
+    }
+    public int addHall(String name){
+        this.name=name;
+        HashMap map=new HashMap();
+        map.put("Name",name);
+        int ID = DataBase.insert("halls","id",map);
+        this.id=ID;
+        return ID;
     }
 }
