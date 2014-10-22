@@ -100,6 +100,19 @@ public class DataBase {
     }
 
     /**
+     * Select all columns from a table
+     *
+     * @param table table to select data from
+     * @param where condition to check when selecting data
+     * @return
+     */
+    public static ResultSet selectAll(String table, String where) {
+        String sql = "SELECT *";
+        sql += " FROM " + table + " WHERE " + where;
+        return con.getQuery(sql);
+    }
+
+    /**
      *
      * @param qry query to perform
      * @return success status
@@ -129,12 +142,17 @@ public class DataBase {
 
     /**
      * Deletes a record form a table
+     *
      * @param table name of the table
      * @param where conditions for the deleting record
-     * @return 
+     * @return
      */
     public static boolean delete(String table, String where) {
         String sql = "DELETE FROM " + table + " WHERE " + where;
         return con.setQuery(sql);
+    }
+
+    public static ResultSet like(String table, String like) {
+        return con.getQuery("SELECT * FROM " + table + " LIKE " + like);
     }
 }

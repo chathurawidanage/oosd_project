@@ -169,7 +169,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         backLbl.setBounds(0, 0, subIconPanel.getWidth(), 60);
         subIconTxt.setBounds(0, 60, subIconPanel.getWidth(), 100);
-        subIconContainer.setBounds(0, 160, subIconPanel.getWidth(), screen.height - 160);
+        subIconContainer.setBounds(0, 140, subIconPanel.getWidth(), screen.height - 140);
         subIconContainer.setOpaque(false);
 
     }
