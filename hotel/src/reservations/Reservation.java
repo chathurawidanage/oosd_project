@@ -33,10 +33,13 @@ public class Reservation {
         list.add("id");
         int[] arr;
         try {
-            arr = (int[]) DataBase.select("halls",list,"1=1").getArray("id").getArray();
-            NoOfHalls=arr.length;
+            // arr = (int[]) DataBase.select("halls",list,"1=1").getArray("id").getArray();
+            ResultSet rs = DataBase.select("halls",list,"1=1"); //.last();//getArray("id");//.getArray();
+            rs.last();
+            NoOfHalls=rs.getInt("id");
+            //  NoOfHalls=arr.length;
         } catch (SQLException ex) {
-            MainWindow.showError("Database Error!","Error while connecting to the database.");
+            MainWindow.showError("Database Error!",ex.toString());
         }
         catch(NullPointerException ex){
            MainWindow.showError("Database Error!","Error while connecting to the database.");
@@ -87,6 +90,7 @@ public class Reservation {
      * @return arrayList of avaliable halls
      */
     public ArrayList<Integer> checkAvaliability(Date date){
+        System.out.println("CheckAvaliability: "+date.toString());
         ArrayList<Integer> halls=new ArrayList<>();
         for(int i=1;i<=NoOfHalls;i++){
             halls.add(i);
@@ -94,13 +98,13 @@ public class Reservation {
         ResultSet select;
         try {
             select= DataBase.select(dbTable, dbCols, "Date='" + date.toString() + "'");
-            int[] array = (int[]) select.getArray("hall").getArray();
-            for(int i=0;i<=array.length;i++){
-                halls.remove(array[i]);
+            //int[] array = (int[]) select.getArray("hall").getArray();
+            while(select.next()){
+                halls.remove(select.getInt("id"));
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(Reservation.class.getName()).log(Level.SEVERE, null, ex);
+            MainWindow.showError("DataBase Error!",ex.toString());
         }     
         return halls;
     }
@@ -110,8 +114,11 @@ public class Reservation {
      * @param  to ending date of the range 
      * @return arrayList of avaliable halls for all days in the range
      */
-    public  ArrayList<Integer> checkAvaliability(Date from,Date to){
+    public  ArrayList<Integer> checkAvaliability(Date to,Date from){
         Date checkDate=from;
+        System.out.println("CheckAvaliabilityRange: "+from.toString());
+        System.out.println("CheckAvaliabilityRange: "+to.toString());
+        System.out.println(NoOfHalls);
         int[] hallArry=new int[NoOfHalls];
         ArrayList<Integer> halls=new ArrayList<>();
         int days=0;
@@ -119,14 +126,16 @@ public class Reservation {
         {
             ArrayList<Integer> list = this.checkAvaliability(checkDate);
             for (Integer list1 : list) {
-                hallArry[list1]++;
+                hallArry[list1-1]++;System.out.println("AvRangeArrListCheck: "+list1);
             }
             checkDate.setTime(checkDate.getTime()+(24*60*60*1000));
+            
             days++;
         }
         for(int i=0;i<NoOfHalls;i++){
             if(hallArry[i]==days){
-                halls.add(hallArry[i]);
+                halls.add(i+1);
+                System.out.println("AvRangeListCheck: "+(hallArry[i]+i));
             }
         }
         return halls;
