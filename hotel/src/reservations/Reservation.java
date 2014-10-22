@@ -70,25 +70,7 @@ public class Reservation {
         //Ledger.
         return true;
     }
-    
-        /**
-     *
-     * @param customer
-     * @param hall
-     * @param from starting date of range
-     * @param to ending date of range
-     * @return return true if reservation successful ,false if unsuccess
-     */
-     public boolean reserve(Customer customer,ReceptionHall hall,Date from,Date to){
-         Date reserveDate=from;
-         while(reserveDate.before(to))
-        {
-            if(!(reserve(customer,hall,reserveDate)))
-                return false;
-            reserveDate.setTime(reserveDate.getTime()+(24*60*60*1000));
-        }
-         return true;
-     }
+
          /**
      *
      * @param  date date which is need to check
