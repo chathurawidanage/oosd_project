@@ -71,6 +71,7 @@ public class DataBase {
             return con.setQuery(sql, returnCol);
         }
 
+        System.out.println(sql);
         if (con.setQuery(sql)) {
             return 0;//successfull
         } else {
@@ -108,22 +109,32 @@ public class DataBase {
     }
 
     /**
-     * 
+     *
      * @param qry query to perform
      * @param colName column name to return the auto generated index
-     * @return  auto generated index
+     * @return auto generated index
      */
     public static int setQuery(String qry, String colName) {
         return con.setQuery(qry, colName);
     }
 
     /**
-     * 
+     *
      * @param qry query to perform
-     * @return ResultSet 
+     * @return ResultSet
      */
     public static ResultSet getQuery(String qry) {
         return con.getQuery(qry);
     }
 
+    /**
+     * Deletes a record form a table
+     * @param table name of the table
+     * @param where conditions for the deleting record
+     * @return 
+     */
+    public boolean delete(String table, String where) {
+        String sql = "DELETE FROM " + table + " WHERE " + where;
+        return con.setQuery(sql);
+    }
 }
