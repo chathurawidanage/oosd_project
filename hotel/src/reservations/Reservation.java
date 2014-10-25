@@ -29,6 +29,7 @@ public class Reservation {
         dbCols=new ArrayList<>();
         dbCols.add("Date");
         dbCols.add("hall");
+        dbCols.add("ID");
         dbTable="reservations";
         ArrayList<String> list=new ArrayList<>();
         list.add("id");
@@ -75,7 +76,6 @@ public class Reservation {
      * @return arrayList of avaliable halls
      */
     public ArrayList<Integer> checkAvaliability(Date date){
-        System.out.println("CheckAvaliability: "+date.toString());
         ArrayList<Integer> halls=new ArrayList<>();
         for(int i=1;i<=NoOfHalls;i++){
             halls.add(i);
@@ -83,8 +83,11 @@ public class Reservation {
         ResultSet select;
         try {
             select= DataBase.select(dbTable, dbCols, "Date='" + date.toString() + "'");
+            //select.next();
+           // System.out.println("beforehall "+select.getInt("ID"));
             while(select.next()){
-                halls.remove(select.getInt("id"));
+                System.out.println("hall");
+                halls.remove(select.getInt("ID"));
             }
             
         } catch (SQLException ex) {
@@ -98,19 +101,17 @@ public class Reservation {
      * @param  to ending date of the range 
      * @return arrayList of avaliable halls for all days in the range
      */
-    public  ArrayList<Integer> checkAvaliability(Date to,Date from){
+    public  ArrayList<Integer> checkAvaliability(Date from,Date to){
         Date checkDate=from;
-        System.out.println("CheckAvaliabilityRange: "+from.toString());
-        System.out.println("CheckAvaliabilityRange: "+to.toString());
-        System.out.println(NoOfHalls);
         int[] hallArry=new int[NoOfHalls];
+        
         ArrayList<Integer> halls=new ArrayList<>();
         int days=0;
         while(checkDate.before(to))
         {
             ArrayList<Integer> list = this.checkAvaliability(checkDate);
             for (Integer list1 : list) {
-                hallArry[list1-1]++;System.out.println("AvRangeArrListCheck: "+list1);
+                hallArry[list1-1]++;
             }
             checkDate.setTime(checkDate.getTime()+(24*60*60*1000));
             
@@ -119,7 +120,6 @@ public class Reservation {
         for(int i=0;i<NoOfHalls;i++){
             if(hallArry[i]==days){
                 halls.add(i+1);
-                System.out.println("AvRangeListCheck: "+(hallArry[i]+i));
             }
         }
         return halls;
