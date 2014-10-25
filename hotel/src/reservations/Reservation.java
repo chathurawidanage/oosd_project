@@ -81,13 +81,17 @@ public class Reservation {
             halls.add(i);
         }
         ResultSet select;
+        
         try {
-            select= DataBase.select(dbTable, dbCols, "Date='" + date.toString() + "'");
-            //select.next();
-           // System.out.println("beforehall "+select.getInt("ID"));
+            long d = ((Date)date).getTime();
+                java.sql.Timestamp sqlDate = new java.sql.Timestamp(d);
+            select= DataBase.select(dbTable, dbCols, "Date='" + sqlDate + "'");
+            
+           // System.out.println(select.next()+" "+sqlDate);
             while(select.next()){
-                System.out.println("hall");
-                halls.remove(select.getInt("ID"));
+                
+                System.out.println("remove "+select.getInt("hall"));
+                halls.remove(select.getInt("hall")-1);
             }
             
         } catch (SQLException ex) {
