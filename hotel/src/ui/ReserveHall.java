@@ -174,7 +174,15 @@ public class ReserveHall extends javax.swing.JInternalFrame implements CustomerS
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         reservations.Reservation res = new Reservation();
-        res.reserve(cus, hall, dayChooser.getDate(), true, (Long) jFormattedTextField1.getValue());
+        boolean reserved = res.reserve(cus, hall, dayChooser.getDate(), true, (Long) jFormattedTextField1.getValue());
+        if (reserved) {
+            MainWindow.showInformation("Reservation done", hall.getName() + " was successully reserved.");
+        } else {
+            MainWindow.showError("Reservayion erro", "There is something wron in the reservation process. Please retry.");
+
+        }
+
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

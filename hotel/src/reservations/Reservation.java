@@ -61,12 +61,11 @@ public class Reservation {
         HashMap map=new HashMap();
         int hallID=hall.getId();
         int customerID=customer.getId();
-        int insert;
-        map.put(date,hallID);
-        insert = DataBase.insert(dbTable,"Date",map);
-        map.put(insert,customerID);
-        DataBase.insert(dbTable,"CustomerID",map);
-        Ledger.addReservation(true, insert,customer.getId(),customer.getName(),hall.getName());
+        map.put("Date",date);
+        map.put("hall",hallID);
+        map.put("customerID",customerID);
+        DataBase.insert(dbTable,"ID",map);
+        Ledger.addReservation(true,amount,customerID,customer.getName(),hall.getName());
         return true;
     }
 
