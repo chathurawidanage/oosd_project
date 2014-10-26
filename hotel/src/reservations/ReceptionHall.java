@@ -29,7 +29,7 @@ public class ReceptionHall {
     public ReceptionHall(int id) {
         this.id = id;
         //call db and
-        System.out.println("recHCon: "+id);
+        System.out.println("recHllCnstctr: "+id);
         ResultSet rs = DataBase.selectAll("halls","id='" + id + "'");
         try {
             rs.next();

@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utilities.DataBase;
 import ui.MainWindow;
 //import sun.util.calendar.LocalGregorianCalendar.Date;
