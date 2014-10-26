@@ -15,5 +15,6 @@ public class test {
         System.out.println("test");
        // ReceptionHall h=new ReceptionHall("test");
         Reservation r=new Reservation();
+      
     }
 }

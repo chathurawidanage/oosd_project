@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilities.DataBase;
 import ui.MainWindow;
 //import sun.util.calendar.LocalGregorianCalendar.Date;
@@ -75,21 +77,21 @@ public class Reservation {
      */
     public ArrayList<Integer> checkAvaliability(Date date){
         ArrayList<Integer> halls=new ArrayList<>();
-        for(int i=1;i<=NoOfHalls;i++){
-            halls.add(i);
-        }
-        ResultSet select;
-        
+         ArrayList<String> col=new ArrayList<>();
+         col.add("id");
+        ResultSet rs = DataBase.select("halls",col,"1=1");
         try {
+            int i=0;
+            while(rs.next()){
+                halls.add(rs.getInt("id"));
+            }
+            ResultSet select;
+
             long d = ((Date)date).getTime();
                 java.sql.Timestamp sqlDate = new java.sql.Timestamp(d);
             select= DataBase.select(dbTable, dbCols, "Date='" + sqlDate + "'");
-            
-           // System.out.println(select.next()+" "+sqlDate);
             while(select.next()){
-                
-                System.out.println("remove "+select.getInt("hall"));
-                halls.remove(select.getInt("hall")-1);
+                halls.remove(halls.indexOf(select.getObject("hall")));
             }
             
         } catch (SQLException ex) {
